@@ -1,0 +1,94 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.loginPage, 
+.signupPage {
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+}
+
+.loginDiv, 
+.signupDiv {
+  position: relative;
+  width: 500px;
+  margin-bottom: 20px;
+  border: 8px solid #73AD21;
+  border-radius: 30px;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  background-color: white;
+}
+
+.loginPage #username, 
+.loginPage #password,
+.signupPage #username,
+.signupPage #password,
+.signupPage #confirm-password {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #73AD21;
+  border-radius: 30px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.loginPage #username:focus,
+.loginPage #password:focus,
+.signupPage #username:focus,
+.signupPage #password:focus,
+.signupPage #confirm-password {
+  border-color: #4ae14f;
+  outline: none;
+}
+
+.loginPage #login-button-container,
+.signupPage #signup-button-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+}
+
+.loginPage #login-button,
+.signupPage #signup-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #4ae14f;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.loginPage #login-button:hover,
+.signupPage #signup-button:hover {
+  background-color: #38aa3c;
+  transform: scale(1.05);
+}
+
+.loginPage #login-button:active,
+.signupPage #signup-button:active {
+  background-color: #28792b;
+  transform: scale(1);
+}
+
+.loginPage #signup-button,
+.signupPage #login-button {
+  text-decoration: underline;
+  background-color: transparent;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  font-size: 15px;
+}
