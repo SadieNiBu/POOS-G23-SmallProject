@@ -15,7 +15,7 @@ if ($conn->connect_error)
 }
 else
 {
-    $stmt = $conn->prepare("DELETE from Contatcs (UserID, FirstName, LastName, Phone, Email) VALUES(?,?,?,?,?)");
+    $stmt = $conn->prepare("DELETE from Contacts (UserID, FirstName, LastName, Phone, Email) VALUES(?,?,?,?,?)");
     $stmt->bind_param("sssss", $userID, $firstName, $lastName, $phone, $email);
     $stmt->execute();
     $stmt->close();
