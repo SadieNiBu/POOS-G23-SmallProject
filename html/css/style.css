@@ -1,55 +1,145 @@
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+}
+
+/* Container for group github */
+.groupInfo {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+/* Github logo */
+.groupInfo img {
+  position: relative;
+  background-color: lightgray;
+  border-radius: 50%;
+  bottom: 0;
+  transform: scale(.40) translate(50%, 50%);
+}
+
+/* h1 page title */
+#formTitle {
+  font-size: 46px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
-.loginPage, 
-.signupPage {
-  background: linear-gradient(to right, #ff7e5f, #feb47b);
-}
-
-.loginDiv, 
-.signupDiv {
-  position: relative;
-  width: 500px;
-  margin-bottom: 20px;
-  border: 8px solid #73AD21;
-  border-radius: 30px;
-  padding: 20px;
-  margin: 20px;
   text-align: center;
-  background-color: white;
+  margin: 20px 0;
+  position: relative;
+  font-family: cursive;
 }
 
-.loginPage #username, 
-.loginPage #password,
-.signupPage #username,
-.signupPage #password,
-.signupPage #confirm-password {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #73AD21;
-  border-radius: 30px;
-  margin: 10px 0;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease;
+/* Add animation to the h1 title */
+#formTitle span {
+  display: inline-block;
+  transform-origin: center bottom;
+  animation: curveText 5s ease-in-out infinite alternate;
 }
 
-.loginPage #username:focus,
-.loginPage #password:focus,
-.signupPage #username:focus,
-.signupPage #password:focus,
-.signupPage #confirm-password {
-  border-color: #4ae14f;
-  outline: none;
+@keyframes curveText {
+  0% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
 }
 
-.loginPage #login-button-container,
-.signupPage #signup-button-container {
+/* The area of the form */
+.userForm {
+position: relative;
+width: 500px;
+margin-bottom: 20px;
+border: 8px solid #73AD21;
+border-radius: 30px;
+padding: 20px;
+margin: 20px auto;
+text-align: center;
+background-color: #edffef;
+}
+
+/* The bar where the login and signup tabs are */
+.tabs {
+display: flex;
+width: 100%;
+justify-content: center;
+overflow: hidden;
+border: 1px solid #ccc;
+border-radius: 30px;
+background-color: #f1f1f1;
+}
+
+/* The actual tab buttons */
+.tabs button {
+background-color: rgb(129, 242, 129);
+text-align: center;
+width: 100%;
+float: left;
+border: none;
+outline: none;
+cursor: pointer;
+padding: 14px 16px;
+transition: 0.3s;
+}
+
+/* When hovering over a tab button */
+.tabs button:hover {
+background-color: #44ea35;
+}
+
+/* When the tab button is clicked */
+.tabs button.active {
+background-color: #20bf20;
+}
+
+/* The area that appears under the tabs */
+.tabcontent {
+display: none;
+padding: 6px 12px;
+border: 1px solid #60ff72;
+border-radius: 30px;
+border-top: none;
+} 
+
+/* Changes the outline of the textbox */
+.userForm #Login #loginName,
+.userForm #Login #loginPassword,
+.userForm #Signup #firstName,
+.userForm #Signup #lastName,
+.userForm #Signup #signupName,
+.userForm #Signup #signupPassword {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #73AD21;
+    border-radius: 30px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+/* When a textbox is selected, change outline */
+.userForm #Login #loginName:focus,
+.userForm #Login #loginPassword:focus,
+.userForm #Signup #firstName:focus,
+.userForm #Signup #lastName:focus,
+.userForm #Signup #signupName:focus,
+.userForm #Signup #signupPassword:focus {
+    border-color: #4ae14f;
+    outline: none;
+}
+
+/* Give some space around the login and signup button */
+.userForm #Login #login-button-container,
+.userForm #Signup #signup-button-container {
   position: relative;
   display: flex;
   justify-content: center;
@@ -58,8 +148,9 @@ body {
   margin: 10px;
 }
 
-.loginPage #login-button,
-.signupPage #signup-button {
+/* Visual effects to the login and signup button */
+.userForm #Login #login-button,
+.userForm #Signup #signup-button {
   padding: 12px 24px;
   font-size: 16px;
   background-color: #4ae14f;
@@ -71,24 +162,67 @@ body {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.loginPage #login-button:hover,
-.signupPage #signup-button:hover {
+/* When user hovers over a button */
+.userForm #Login #login-button:hover,
+.userForm #Signup #signup-button:hover {
   background-color: #38aa3c;
   transform: scale(1.05);
 }
 
-.loginPage #login-button:active,
-.signupPage #signup-button:active {
+/* When the button is clicked */
+.userForm #Login #login-button:active,
+.userForm #Signup #signup-button:active {
   background-color: #28792b;
   transform: scale(1);
 }
 
-.loginPage #signup-button,
-.signupPage #login-button {
-  text-decoration: underline;
-  background-color: transparent;
-  border: none;
-  color: blue;
-  cursor: pointer;
-  font-size: 15px;
+/* Allign and resize password criteria */
+.userForm #Signup #passwordList {
+  text-align: left;
+  font-size: 80%;
 }
+
+ /* Password tooltip container */
+ .tooltip {
+  position: relative;
+  width: 100%;
+  display: inline-block;
+}
+
+/* Tooltip box text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: #555;
+  color: #fff;
+  text-align: left;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  margin-left: -25%;
+
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* The arrow that appears on the edge of the tooltip box */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #555 transparent;
+}
+
+/* Keep the tooltip box in focus while the password box is active */
+.tooltip input:focus + .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+} 
