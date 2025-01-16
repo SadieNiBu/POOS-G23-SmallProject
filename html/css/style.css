@@ -225,4 +225,136 @@ border-top: none;
 .tooltip input:focus + .tooltiptext {
   visibility: visible;
   opacity: 1;
+
+/* Heading Container for Main Page*/
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    background-color: #cccccc;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Logout Button */
+#logoutButton{
+    border: none;
+    background-color: #cccccc;
+    font-size: 20px;  
+    margin: 4px 2px;
+    text-align: center;
+}
+#logoutButton:hover{
+    color: blue;
+}
+
+/* Search Bar */
+.searchBar{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 80px;
+    text-align:left;
+    border-radius: 25px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 500px;
+    border: 2px solid #73AD21;
+}
+
+/* The Part of the search bar with input */
+#search{
+    width: 450px;
+    border-radius: 25px;
+    padding: 8px;
+    border: none;
+    font-size: 20px;
+}
+#search:focus{
+    outline-width: 0px;
+}
+
+/* Submit button for search */
+#searchSubmit{
+    font-size: 23px;
+    border: 1;
+    border-radius: 50px;
+    background-color: #bdff60;               
+}
+#searchSubmit:hover{
+    color:blue;
+}
+
+/* Contacts heading and add contact button spacing */
+.addForm{
+    margin-top: 60px;  
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Add Contact Button */
+#addContact{
+    margin: 20px 2px;
+    font-size: 15px;
+    border: 1;
+    border-radius: 50px;
+    background-color: #bdff60; 
+}
+#addContact:hover{
+    color: blue;
+    background-color: #9cd34f; 
+}
+
+/* Popup window for adding contacts */
+.addContactPopup {
+    display: none;
+    bottom: 20%;
+    right: 15px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;     
+}
+.popupBox {
+    max-width: 300px;
+    padding: 10px;
+    border: 1px #73AD21;
+    background-color: gray;
+    position: relative;
+    top: 46%;
+    width: 80%;
+    text-align: center;
+    margin-top: 30px;
+    margin: auto;    
+    border-radius: 25px;      
+}
+
+/* Add contact information fields */
+.popupBox input[type="text"]{
+    font-size: 20px;
+    margin: 8px;              
+}
+
+/* "Add Contact" and "Cancel" buttons */
+.formButton{
+    font-size: 20px;
+    margin: 8px;
+}
+
+/* Contact Table */
+#contactTable{
+    text-align: left;
+    margin-left:auto;
+    margin-right:auto;      
+    text-align: center;         
+}
+
+/* Edit and delete buttons in contact table */
+.contactActions{
+    border: none;
+    background-color: white;
+    font-size: 20px;  
+}
+.contactActions:hover{
+    color:blue;
+}
 } 
