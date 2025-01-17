@@ -1,6 +1,6 @@
 // ** TO DO **
 // Confirm our domain and extension
-const urlBase = 'contact23.xyz';
+const urlBase = 'http://contact23.xyz/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -30,8 +30,6 @@ function doLogin()
     let tmp = {login:login,password:password};
     let jsonPayload = JSON.stringify( tmp );
 
-	// ** TO DO **
-	// Modify this to the correct format for directory
     let url = urlBase + '/Login.' + extension;
     
     let xhr = new XMLHttpRequest();
@@ -60,7 +58,7 @@ function doLogin()
 				
 				// ** TO DO **
                 // To be modified with our logged in page
-				window.location.href = "color.html";
+				window.location.href = "index.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -127,6 +125,10 @@ function verifyPasswordConditions()
 // Performs signup by parsing given fields to JSON then send POST request
 function doSignup()
 {
+
+	// Clears the signup result text
+	document.getElementById("signupResult").innerHTML = "";
+
 	userId = 0;
 
 	let firstName = document.getElementById("firstName").value;
@@ -139,9 +141,7 @@ function doSignup()
 	let tmp = {firstName:firstName,lastName:lastName,login:login,password:password};
 	let jsonPayload = JSON.stringify( tmp );
 
-	// ** TO DO **
-	// Modify this to the correct format for directory
-	let url = urlBase + '/AddColor.' + extension;
+	let url = urlBase + '/Register.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -150,11 +150,29 @@ function doSignup()
 	{
 		xhr.onreadystatechange = function() 
 		{
+			// Accepted
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				// ** TO DO ** 
-				// Confirm if this is the output if the user/color already exists
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				let jsonObject = JSON.parse( xhr.responseText );
+				userId = jsonObject.id;
+
+				document.getElementById("signupResult").innerHTML = "Account Created. Please go back to Login.";
+
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+				saveCookie();
+			}
+			// Conflict (work with API later on this one)
+			else if (this.readyState == 4 && this.status == 409)
+			{
+				document.getElementById("signupResult").innerHTML = "Username is taken.";
+				return;
+			}
+			// Other states and status, just return
+			else
+			{
+				return;
 			}
 		};
 		xhr.send(jsonPayload);
@@ -165,7 +183,6 @@ function doSignup()
 	}
 	
 }
-
 
 function saveCookie()
 {
@@ -220,7 +237,7 @@ function doLogout()
 }
 
 // This was taken from w3schools example on tab buttons
-function openEvent(evt, cityName) {
+function openEvent(evt, tabName) {
 
     var i, tabcontent, tablinks;
   
@@ -237,6 +254,6 @@ function openEvent(evt, cityName) {
     }
   
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
   } 
