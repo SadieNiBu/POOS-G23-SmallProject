@@ -1,80 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
+  <head>
     <!-- tab title -->
     <title>Contact23.XYZ</title>
 
     <!-- meta data -->
-    <meta charset="UTF-8">
-    <meta name="keywords" content="HTML, CSS, JavaScript">
-    <meta name="description" content="Contact manager for COP 4331">
-    <link href="css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- </head>
- 
- <body>
-     <!-- Navigation -->
-     <div class="navigation">
-        <h1>Contact23.XYZ</h1>
-    		  <button type="button" id="logoutButton" >Logout</button>
-    	</div>
-    
-     <!-- Search Bar -->
-     <div class="searchBar">
-         <input type="text" id="search" placeholder="Search.." >
-         <button type="submit" id="searchSubmit"><i class="fa fa-search"></i></button>
-     </div>
-    
-     <!-- Add Contact Form -->
-     <div class="addForm">
-          <h2> Contacts:</h2>
-          <button id="addContact" onclick="openForm()">Add Contact</button>
-    
-          <div class="addContactPopup" id="myForm">
-               <form action="/action_page.php" class="popupBox">
-                    <h1 style="margin: 8px;">Add Contact</h1>
-                
-                    <input type="text" onfocus="this.value=''" placeholder="First Name" name="firstName" required>
-                    <input type="text" onfocus="this.value=''" placeholder="Last Name" name="lastName" required>
-                    <input type="text" onfocus="this.value=''" placeholder="Phone Number" name="pNumber" required>
-                    <input type="text" onfocus="this.value=''" placeholder="Email" name="Email" required>
-                
-                    <button type="button" class="formButton"> Add Contact </button>
-                    <button type="button" class="formButton" onclick="closeForm()">Cancel</button>
-                </form>
-           </div>
-       </div>
-    
-       <!-- Contact Table -->
-       <table id="contactTable" border="2" cellpadding="10" cellspacing="0">
-           <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            <tr> 
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td>Placeholder</td>
-                <td><button class="contactActions"> <i class="fa fa-pencil"></i> </button></td>       
-                <td><button class="contactActions"> <i class="fa fa-trash"></i> </button></td>           
-            </tr>
-        </table>
-  
-        <!-- Add Contact Form Script (Add to js file) -->
-        <script>
-            function openForm() {
-              document.getElementById("myForm").style.display = "block";
-            }
-            
-            function closeForm() {
-              document.getElementById("myForm").style.display = "none";
-            }
-        </script>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="HTML, CSS, JavaScript" />
+    <meta name="description" content="Contact manager for COP 4331" />
+    <link href="css/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/code.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
 
-</body>
+  <body class="contactPage">
+    <!-- Navigation -->
+    <div class="navigation">
+      <h1>Contact23.XYZ</h1>
+      <button type="button" id="logoutButton">Logout</button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="searchBar">
+      <input type="text" id="search" placeholder="Search.." />
+      <button type="submit" id="searchSubmit" onclick="searchContact()">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+
+    <!-- Add Contact Form -->
+    <div class="addForm">
+      <h2>Contacts:</h2>
+      <button id="addContact" onclick="openForm()">Add Contact</button>
+
+      <div class="addContactPopup" id="myForm">
+        <form action="/action_page.php" class="popupBox">
+          <h1 style="margin: 8px">Add Contact</h1>
+
+          <input
+            type="text"
+            onfocus="this.value=''"
+            placeholder="First Name"
+            name="firstName"
+            required
+          />
+          <input
+            type="text"
+            onfocus="this.value=''"
+            placeholder="Last Name"
+            name="lastName"
+            required
+          />
+          <input
+            type="text"
+            onfocus="this.value=''"
+            placeholder="Phone Number"
+            name="pNumber"
+            required
+          />
+          <input
+            type="text"
+            onfocus="this.value=''"
+            placeholder="Email"
+            name="Email"
+            required
+          />
+
+          <button type="button" class="formButton">Add Contact</button>
+          <button type="button" class="formButton" onclick="closeForm()">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Contact Table -->
+    <table id="contactTable" border="2" cellpadding="10" cellspacing="0">
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      <tr>
+        <td>Placeholder</td>
+        <td>Placeholder</td>
+        <td>Placeholder</td>
+        <td>Placeholder</td>
+        <td>
+          <button class="contactActions"><i class="fa fa-pencil"></i></button>
+        </td>
+        <td>
+          <button class="contactActions"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      <tr>
+        <td>Placeholder1</td>
+        <td>Placeholder1</td>
+        <td>Placeholder1</td>
+        <td>Placeholder1</td>
+        <td>
+          <button class="contactActions"><i class="fa fa-pencil"></i></button>
+        </td>
+        <td>
+          <button class="contactActions"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Add Contact Form Script (Add to js file) -->
+  </body>
 </html>

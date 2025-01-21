@@ -1,4 +1,5 @@
-body {
+/* Main page when user opens webpage */
+.landingPage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -225,7 +226,16 @@ border-top: none;
 .tooltip input:focus + .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
 
+.contactPage {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+}
+  
 /* Heading Container for Main Page*/
 .navigation {
     display: flex;
@@ -344,17 +354,61 @@ border-top: none;
 #contactTable{
     text-align: left;
     margin-left:auto;
-    margin-right:auto;      
-    text-align: center;         
+    margin-right:auto;
+    text-align: center;
+    width: 80%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    overflow-x: auto;
+    table-layout: fixed;
+    background-color: #ff7247;
+}
+
+#contactTable th{
+  background-color: #20bf20;
+  font-weight: bold;
 }
 
 /* Edit and delete buttons in contact table */
 .contactActions{
     border: none;
-    background-color: white;
+    background-color: transparent;
     font-size: 20px;  
+    cursor: pointer;
 }
+
+/* Edit/Delete buttons when hovering over */
 .contactActions:hover{
     color:blue;
 }
-} 
+
+/* When hovering over a row */
+#contactTable tr:hover {
+  background-color: rgb(129, 242, 129);
+}
+
+/* Set column specific widths based on assumed size */
+/* First Name Column */
+#contactTable th:nth-child(1), #contactTable td:nth-child(1) { 
+  width: 18%;
+}
+/* Last Name Column */
+#contactTable th:nth-child(2), #contactTable td:nth-child(2) { 
+  width: 18%;
+}
+/* Phone Number Column */
+#contactTable th:nth-child(3), #contactTable td:nth-child(3) { 
+  width: 18%;
+}
+/* Email Column */
+#contactTable th:nth-child(4), #contactTable td:nth-child(4) { 
+  width: 32%;
+}
+/* Edit Column */
+#contactTable th:nth-child(5), #contactTable td:nth-child(5) { 
+  width: 7%;
+}
+/* Delete Column */
+#contactTable th:nth-child(6), #contactTable td:nth-child(6) { 
+  width: 7%;
+}

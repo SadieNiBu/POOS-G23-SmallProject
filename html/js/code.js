@@ -9,7 +9,10 @@ let lastName = "";
 
 // Open the Login tab when the page is opened
 document.addEventListener('DOMContentLoaded', function() {
-	openEvent(event, 'Login');
+	if (window.location.pathname.endsWith('newindex.html'))
+	{
+		openEvent(event, 'Login');
+	}
 });
 
 // Performs login by parsing provided credentials to JSON then send POST request
@@ -25,6 +28,13 @@ function doLogin()
     // Clears the login result text
     document.getElementById("loginResult").innerHTML = "";
 
+	// Check if username or password was empty, return if empty
+	if (login.length == 0 || password.length == 0)
+	{
+		document.getElementById("loginResult").innerHTML = "Username or Password is empty."
+		return;
+	}
+	
 	// ** TO DO **
 	// Confirm if this is the correct JSON format for API
     let tmp = {login:login,password:password};
@@ -256,4 +266,127 @@ function openEvent(evt, tabName) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
-  } 
+} 
+
+  // --------------- Start of logged in page functions -------------------
+
+function openForm() {
+	document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+	document.getElementById("myForm").style.display = "none";
+}
+
+function searchContact() {
+	let searchName = document.getElementById("search").value;
+
+	let tmp = {search:searchName,userId:userId};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/SearchContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				
+				for( let i=0; i<jsonObject.results.length; i++ )
+				{
+					colorList += jsonObject.results[i];
+					if( i < jsonObject.results.length - 1 )
+					{
+						colorList += "<br />\r\n";
+					}
+				}
+				
+				document.getElementsByTagName("p")[0].innerHTML = colorList;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("colorSearchResult").innerHTML = err.message;
+	}
+}
+
+/* Testing data, delete later */
+const contacts = [
+{
+	firstName: "Adam",
+	lastName: "Wrangler",
+	phoneNumber: "123-456-7890",
+	email: "adam.wrangler@example.com"
+},
+{
+	firstName: "Steven",
+	lastName: "Crossing",
+	phoneNumber: "123-456-7890",
+	email: "steven.crossing@example.com"
+},
+{
+	firstName: "John",
+	lastName: "Doe",
+	phoneNumber: "123-456-7890",
+	email: "john.doe@example.com"
+},
+{
+	firstName: "Jane",
+	lastName: "Smith",
+	phoneNumber: "987-654-3210",
+	email: "jane.smith@example.com"
+}
+];
+
+function populateTable() {
+	// table and tbody element
+	const table = document.getElementById('contactTable');
+	const tbody = table.getElementsByTagName('tbody')[0];
+
+	//tbody.innerHTML = '';
+	while (tbody.rows.length > 0)
+	{
+		tbody.deleteRow(0);
+	}
+
+	// go through each contact
+	contacts.forEach(contact => {
+		// create a row
+		const row = document.createElement('tr');
+
+		// make and assign cells to the row for each type of info
+		Object.values(contact).forEach(value => {
+			const cell = document.createElement('td');
+			cell.textContent = value;
+			row.appendChild(cell);
+		});
+
+		// make the edit button
+		const editCell = document.createElement('td');
+		const editButton = document.createElement('button');
+		editButton.classList.add('contactActions');
+		editButton.innerHTML = '<i class="fa fa-pencil"></i>';
+		editCell.appendChild(editButton);
+		row.appendChild(editCell);
+
+		// make the delete button
+		const deleteCell = document.createElement('td');
+		const deleteButton = document.createElement('button');
+		deleteButton.classList.add('contactActions');
+		deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
+		deleteCell.appendChild(deleteButton);
+		row.appendChild(deleteCell);
+
+		// assign row to tbody of table
+		tbody.appendChild(row);
+	});
+}
+
+window.onload = populateTable;
