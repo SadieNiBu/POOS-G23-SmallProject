@@ -1,11 +1,11 @@
 /* Main page when user opens webpage */
 .landingPage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(to bottom, #ff7e5f, #feb47b);
 }
 
 /* Container for group github */
@@ -57,58 +57,58 @@
 
 /* The area of the form */
 .userForm {
-position: relative;
-width: 500px;
-margin-bottom: 20px;
-border: 8px solid #73AD21;
-border-radius: 30px;
-padding: 20px;
-margin: 20px auto;
-text-align: center;
-background-color: #edffef;
+  position: relative;
+  width: 500px;
+  margin-bottom: 20px;
+  border: 8px solid #73AD21;
+  border-radius: 30px;
+  padding: 20px;
+  margin: 20px auto;
+  text-align: center;
+  background-color: #edffef;
 }
 
 /* The bar where the login and signup tabs are */
 .tabs {
-display: flex;
-width: 100%;
-justify-content: center;
-overflow: hidden;
-border: 1px solid #ccc;
-border-radius: 30px;
-background-color: #f1f1f1;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  background-color: #f1f1f1;
 }
 
 /* The actual tab buttons */
 .tabs button {
-background-color: rgb(129, 242, 129);
-text-align: center;
-width: 100%;
-float: left;
-border: none;
-outline: none;
-cursor: pointer;
-padding: 14px 16px;
-transition: 0.3s;
+  background-color: rgb(129, 242, 129);
+  text-align: center;
+  width: 100%;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
 }
 
 /* When hovering over a tab button */
 .tabs button:hover {
-background-color: #44ea35;
+  background-color: #44ea35;
 }
 
 /* When the tab button is clicked */
 .tabs button.active {
-background-color: #20bf20;
+  background-color: #20bf20;
 }
 
 /* The area that appears under the tabs */
 .tabcontent {
-display: none;
-padding: 6px 12px;
-border: 1px solid #60ff72;
-border-radius: 30px;
-border-top: none;
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #60ff72;
+  border-radius: 30px;
+  border-top: none;
 } 
 
 /* Changes the outline of the textbox */
@@ -118,14 +118,14 @@ border-top: none;
 .userForm #Signup #lastName,
 .userForm #Signup #signupName,
 .userForm #Signup #signupPassword {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 2px solid #73AD21;
-    border-radius: 30px;
-    margin: 10px 0;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #73AD21;
+  border-radius: 30px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 /* When a textbox is selected, change outline */
 .userForm #Login #loginName:focus,
@@ -134,8 +134,8 @@ border-top: none;
 .userForm #Signup #lastName:focus,
 .userForm #Signup #signupName:focus,
 .userForm #Signup #signupPassword:focus {
-    border-color: #4ae14f;
-    outline: none;
+  border-color: #4ae14f;
+  outline: none;
 }
 
 /* Give some space around the login and signup button */
@@ -228,6 +228,8 @@ border-top: none;
   opacity: 1;
 }
 
+/* Start of the contact page */
+
 .contactPage {
   justify-content: center;
   align-items: center;
@@ -314,7 +316,7 @@ border-top: none;
     background-color: #9cd34f; 
 }
 
-/* Popup window for adding contacts */
+/* Parent container for Add Contact form */
 .addContactPopup {
     display: none;
     bottom: 20%;
@@ -324,8 +326,10 @@ border-top: none;
     top: 0;
     left: 0;     
 }
+
+/* The popup box for the Add Contact form */
 .popupBox {
-    max-width: 300px;
+    max-width: 450px;
     padding: 10px;
     border: 1px #73AD21;
     background-color: gray;
@@ -335,19 +339,57 @@ border-top: none;
     text-align: center;
     margin-top: 30px;
     margin: auto;    
-    border-radius: 25px;      
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.popupBox #addContactResult {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+}
+
+/* Container for the label and input box */
+.popupBox div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* The labels for each of the information fields */
+.popupBox label {
+  font-size: 20px;
+  margin-right: 8px;
+  width: 40%;
 }
 
 /* Add contact information fields */
 .popupBox input[type="text"]{
     font-size: 20px;
-    margin: 8px;              
+    margin: 8px;    
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+/* The container for the Add Contact and Cancel buttons */
+.popupBox #formButtonContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
 }
 
 /* "Add Contact" and "Cancel" buttons */
-.formButton{
+.popupBox #formButton{
     font-size: 20px;
     margin: 8px;
+    padding: 8px;
+    border-radius: 30px;
 }
 
 /* Contact Table */
@@ -387,7 +429,7 @@ border-top: none;
   background-color: rgb(129, 242, 129);
 }
 
-/* Set column specific widths based on assumed size */
+/* Set column specific widths based on my guessed size needed */
 /* First Name Column */
 #contactTable th:nth-child(1), #contactTable td:nth-child(1) { 
   width: 18%;
@@ -411,4 +453,69 @@ border-top: none;
 /* Delete Column */
 #contactTable th:nth-child(6), #contactTable td:nth-child(6) { 
   width: 7%;
+}
+
+/* Class container for popup (deal with background transparency) */
+.deletePopupContainer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* The actual confirmation popup box */
+.deletePopupBox {
+  background-color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  width: 370px;
+  max-width: 450px;
+  position: relative;
+  top: 46%;
+  margin-top: 30px;
+  margin: auto;    
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Text on the confirmation popup box */
+#deleteConfirmationText {
+  display: block;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Container for the Delete and Cancel buttons */
+#deletePopupButtonsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Add some spacing around the Delete and Cancel buttons */
+#deletePopupButtonsContainer button {
+  padding: 10px;
+  width: 45%;
+}
+
+/* Individual properties for Cancel */
+#cancelDeleteButton {
+  background-color: #ff7e5f;
+  color: black;
+}
+
+/* Individual properties for Delete */
+#confirmDeleteButton {
+  background-color: #20bf20;
+  color: black;
 }
