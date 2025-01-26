@@ -268,18 +268,23 @@ function openEvent(evt, tabName) {
     evt.currentTarget.className += " active";
 } 
 
-  // --------------- Start of logged in page functions -------------------
+// --------------- Start of logged in page functions -------------------
 
+// Opens the Add Contact form
 function openForm() {
 	document.getElementById("myForm").style.display = "block";
 }
 
+// Closes the Add Contact form
 function closeForm() {
 	document.getElementById("myForm").style.display = "none";
 }
 
+// Performs a contact search by parsing provided fields to JSON then send POST request
 function searchContact() {
 	let searchName = document.getElementById("search").value;
+
+	let contactList = [];
 
 	let tmp = {search:searchName,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
@@ -299,26 +304,214 @@ function searchContact() {
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
+					let currContact = jsonObject.results[i];
+
+					contactList.push({
+						firstName: currContact.firstName,
+						lastName: currContact.lastName,
+						phoneNumber: currContact.phoneNumber,
+						email: currContact.email
+					});
 				}
 				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				populateTable(contactList);
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
 
+// Deletes the old table body rows and replaces with the new parameters from JSON
+function populateTable(contacts) {
+	// table and tbody element
+	const table = document.getElementById('contactTable');
+	const tbody = table.getElementsByTagName('tbody')[0];
+
+	//tbody.innerHTML = '';
+	while (tbody.rows.length > 0)
+	{
+		tbody.deleteRow(0);
+	}
+
+	// go through each contact
+	contacts.forEach((contact, index) => {
+		// create a row
+		const row = document.createElement('tr');
+
+		// make and assign cells to the row for each type of info
+		Object.values(contact).forEach(value => {
+			const cell = document.createElement('td');
+			cell.textContent = value;
+			row.appendChild(cell);
+		});
+
+		// make the edit button
+		const editCell = document.createElement('td');
+		const editButton = document.createElement('button');
+		editButton.classList.add('contactActions');
+		editButton.innerHTML = '<i class="fa fa-pencil"></i>';
+		editCell.appendChild(editButton);
+		row.appendChild(editCell);
+
+		// make the delete button
+		const deleteCell = document.createElement('td');
+		const deleteButton = document.createElement('button');
+		deleteButton.classList.add('contactActions');
+		deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
+		deleteButton.onclick = () => {
+			verifyDeleteContact(index, contact);
+		}
+		deleteCell.appendChild(deleteButton);
+		row.appendChild(deleteCell);
+
+		// assign row to tbody of table
+		tbody.appendChild(row);
+	});
+}
+
+// Checks if the given fields are valid entries, if it is then call doAddContact
+function verifyAddContact() {
+	let addFirstName = document.getElementById("addFirstName").value;
+	let addLastName = document.getElementById("addLastName").value;
+	let addPhoneNumber = document.getElementById("addPhoneNumber").value;
+	let addEmail = document.getElementById("addEmail").value;
+
+	const nameRegex = /^[a-zA-Z]+$/;
+	const phoneRegex = /^\d{10}$/;
+	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+	// Check for any blank fields
+	if (addFirstName.length == 0 || addLastName.length == 0 || addPhoneNumber.length == 0 || addEmail.length == 0)
+	{
+		document.getElementById("addContactResult").innerHTML = "Please fill all fields.";
+		return;
+	}
+
+	// Clears the add result text
+	document.getElementById("addContactResult").innerHTML = "";
+
+	if (!nameRegex.test(addFirstName))
+	{
+		document.getElementById("addContactResult").innerHTML = "Invalid First Name";
+	}
+	else if (!nameRegex.test(addLastName))
+	{
+		document.getElementById("addContactResult").innerHTML = "Invalid Last Name";
+	}
+	else if (!phoneRegex.test(addPhoneNumber))
+	{
+		document.getElementById("addContactResult").innerHTML = "Invalid Phone Number";
+	}
+	else if (!emailRegex.test(addEmail))
+	{
+		document.getElementById("addContactResult").innerHTML = "Invalid Email Address";
+	}
+	else
+	{
+		doAddContact();
+	}
+}
+
+// Parses given contact information to JSON and sends POST request
+function doAddContact() {
+
+	document.getElementById("addContactResult").innerHTML = "";
+
+	userId = 0;
+
+	let addFirstName = document.getElementById("addFirstName").value;
+	let addLastName = document.getElementById("addLastName").value;
+	let addPhoneNumber = document.getElementById("addPhoneNumber").value;
+	let addEmail = document.getElementById("addEmail").value;
+
+	// ** TO DO **
+	// Confirm if this is the correct JSON format for API
+	let tmp = {userID:userId,firstName:addFirstName,lastName:addLastName,phone:addPhoneNumber,email:addEmail};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/AddContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			// Accepted
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("addContactResult").innerHTML = "Contact Added.";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("addContactResult").innerHTML = err.message;
+	}
+}
+
+// Need to store index as global variable to allow scope access
+let contactIndexToDelete = null;
+let contactDataToDelete = null;
+
+// Open a pop up box to ask user to confirm if they want to delete
+function verifyDeleteContact(index, contact) {
+	contactIndexToDelete = index;
+	contactDataToDelete = contact;
+	document.getElementById("deletePopup").style.display = "block";
+}
+
+// Close the delete confirmation popup
+function closeDeletePopup() {
+	document.getElementById("deletePopup").style.display = "none";
+}
+
+// Send the given contact data and perform a POST request. Set the deleted
+// contact row to be black (indicate delete). Reset index and data at end.
+function doDeleteContact() {
+
+	let jsonPayload = JSON.stringify( contactDataToDelete );
+
+	let url = urlBase + '/DeleteContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				const table = document.getElementById('contactTable');
+				const tbody = table.getElementsByTagName('tbody')[0];
+
+				const rowToRemove = tbody.rows[contactIndexToDelete];
+
+				rowToRemove.style.backgroundColor = 'black';
+				rowToRemove.style.color = 'black';
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+
+	contactIndexToDelete = null;
+	contactDataToDelete = null;
+}
+
+
 /* Testing data, delete later */
-const contacts = [
+const books = [
 {
 	firstName: "Adam",
 	lastName: "Wrangler",
@@ -345,48 +538,38 @@ const contacts = [
 }
 ];
 
-function populateTable() {
-	// table and tbody element
-	const table = document.getElementById('contactTable');
-	const tbody = table.getElementsByTagName('tbody')[0];
+const books2 = [
+{
+	firstName: "Michael",
+	lastName: "Johnson",
+	phoneNumber: "321-654-9870",
+	email: "michael.johnson@example.com"
+},
+{
+	firstName: "Emily",
+	lastName: "Davis",
+	phoneNumber: "234-567-8901",
+	email: "emily.davis@example.com"
+},
+{
+	firstName: "Sarah",
+	lastName: "Williams",
+	phoneNumber: "456-789-0123",
+	email: "sarah.williams@example.com"
+},
+{
+	firstName: "David",
+	lastName: "Brown",
+	phoneNumber: "567-890-1234",
+	email: "david.brown@example.com"
+}
+];
 
-	//tbody.innerHTML = '';
-	while (tbody.rows.length > 0)
-	{
-		tbody.deleteRow(0);
-	}
-
-	// go through each contact
-	contacts.forEach(contact => {
-		// create a row
-		const row = document.createElement('tr');
-
-		// make and assign cells to the row for each type of info
-		Object.values(contact).forEach(value => {
-			const cell = document.createElement('td');
-			cell.textContent = value;
-			row.appendChild(cell);
-		});
-
-		// make the edit button
-		const editCell = document.createElement('td');
-		const editButton = document.createElement('button');
-		editButton.classList.add('contactActions');
-		editButton.innerHTML = '<i class="fa fa-pencil"></i>';
-		editCell.appendChild(editButton);
-		row.appendChild(editCell);
-
-		// make the delete button
-		const deleteCell = document.createElement('td');
-		const deleteButton = document.createElement('button');
-		deleteButton.classList.add('contactActions');
-		deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
-		deleteCell.appendChild(deleteButton);
-		row.appendChild(deleteCell);
-
-		// assign row to tbody of table
-		tbody.appendChild(row);
-	});
+// test function
+function doTable() {
+	populateTable(books);
 }
 
-window.onload = populateTable;
+function doTable2() {
+	populateTable(books2);
+}
