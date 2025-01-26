@@ -280,6 +280,16 @@ function closeForm() {
 	document.getElementById("myForm").style.display = "none";
 }
 
+// Opens the Edit Contact form
+function openForm() {
+	document.getElementById("myEditForm").style.display = "block";
+}
+
+// Closes the Edit Contact form
+function closeForm() {
+	document.getElementById("myEditForm").style.display = "none";
+}
+
 // Performs a contact search by parsing provided fields to JSON then send POST request
 function searchContact() {
 	let searchName = document.getElementById("search").value;
@@ -509,6 +519,15 @@ function doDeleteContact() {
 	contactDataToDelete = null;
 }
 
+// Perform logout
+function doLogout()
+{
+	userId = 0;
+	firstName = "";
+	lastName = "";
+	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	window.location.href = "newindex.html";
+}
 
 /* Testing data, delete later */
 const books = [
