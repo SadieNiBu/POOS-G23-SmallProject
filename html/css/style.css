@@ -519,3 +519,88 @@
   background-color: #20bf20;
   color: black;
 }
+
+/* Contacts heading and add contact button spacing */
+.editForm{
+  margin-top: 60px;  
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+}
+
+/* Parent container for Add Contact form */
+.editContactPopup {
+  display: none;
+  bottom: 20%;
+  right: 15px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;     
+}
+
+/* The popup box for the Add Contact form */
+.editPopupBox {
+  max-width: 450px;
+  padding: 10px;
+  border: 1px #73AD21;
+  background-color: gray;
+  position: relative;
+  top: 46%;
+  width: 80%;
+  text-align: center;
+  margin-top: 30px;
+  margin: auto;    
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.editPopupBox #editContactResult {
+font-size: 20px;
+font-weight: 700;
+text-align: center;
+width: 100%;
+}
+
+/* Container for the label and input box */
+.editPopupBox div {
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+}
+
+/* The labels for each of the information fields */
+.editPopupBox label {
+font-size: 20px;
+margin-right: 8px;
+width: 40%;
+}
+
+/* Add contact information fields */
+.editPopupBox input[type="text"]{
+  font-size: 20px;
+  margin: 8px;    
+  width: 100%;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+/* The container for the Add Contact and Cancel buttons */
+.editPopupBox #editFormButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* "Add Contact" and "Cancel" buttons */
+.editPopupBox #editFormButton{
+  font-size: 20px;
+  margin: 8px;
+  padding: 8px;
+  border-radius: 30px;
+}
