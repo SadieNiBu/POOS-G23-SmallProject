@@ -28,7 +28,7 @@
     <!-- Search Bar -->
     <div class="searchBar">
       <input type="text" id="search" placeholder="Search.." />
-      <button type="submit" id="searchSubmit" onclick="doTable()">
+      <button type="submit" id="searchSubmit" onclick="searchContact()">
         <i class="fa fa-search"></i>
       </button>
     </div>
@@ -91,6 +91,71 @@
             </button>
           </div>
         </form>
+      </div>
+
+      <!-- Edit Contact Form -->
+      <div class="editForm">
+        <div class="editContactPopup" id="myEditForm">
+          <form class="editPopupBox">
+            <h1 style="margin: 8px">Edit Contact</h1>
+
+            <div>
+              <span id="editContactResult"></span>
+            </div>
+
+            <div>
+              <label for="editFirstName">First Name:</label>
+              <input
+                type="text"
+                placeholder="First Name"
+                id="editFirstName"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="editLastName">Last Name:</label>
+              <input
+                type="text"
+                placeholder="Last Name"
+                id="editLastName"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="editPhoneNumber">Phone Number:</label>
+              <input
+                type="text"
+                placeholder="Phone Number"
+                id="editPhoneNumber"
+                required
+              />
+            </div>
+
+            <div>
+              <label for="editEmail">Email:</label>
+              <input type="text" placeholder="Email" id="editEmail" required />
+            </div>
+
+            <div id="editFormButtonContainer">
+              <button
+                type="button"
+                id="editFormButton"
+                onclick="verifyEditContact()"
+              >
+                Edit Contact
+              </button>
+              <button
+                type="button"
+                id="editFormButton"
+                onclick="closeEditForm()"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <div class="deletePopupContainer" id="deletePopup">
