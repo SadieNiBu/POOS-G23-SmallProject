@@ -280,16 +280,6 @@ function closeForm() {
 	document.getElementById("myForm").style.display = "none";
 }
 
-// Opens the Edit Contact form
-function openForm() {
-	document.getElementById("myEditForm").style.display = "block";
-}
-
-// Closes the Edit Contact form
-function closeForm() {
-	document.getElementById("myEditForm").style.display = "none";
-}
-
 // Performs a contact search by parsing provided fields to JSON then send POST request
 function searchContact() {
 	let searchName = document.getElementById("search").value;
@@ -316,7 +306,9 @@ function searchContact() {
 				{
 					let currContact = jsonObject.results[i];
 
+					// ASK ABOUT THIS PART
 					contactList.push({
+						userID: 0,
 						firstName: currContact.firstName,
 						lastName: currContact.lastName,
 						phoneNumber: currContact.phoneNumber,
@@ -364,6 +356,9 @@ function populateTable(contacts) {
 		const editButton = document.createElement('button');
 		editButton.classList.add('contactActions');
 		editButton.innerHTML = '<i class="fa fa-pencil"></i>';
+		editButton.onclick = () => {
+			openEditForm(index, contact);
+		}
 		editCell.appendChild(editButton);
 		row.appendChild(editCell);
 
@@ -529,57 +524,170 @@ function doLogout()
 	window.location.href = "newindex.html";
 }
 
+// Store the index and data globally for easier scoping
+let contactIndexToEdit = null;
+let contactDataToEdit = null;
+
+// Opens the Edit Contact form and fills the fields with contact data
+function openEditForm(index, contact) {
+
+	contactIndexToEdit = index;
+	contactDataToEdit = contact;
+
+	document.getElementById("editFirstName").value = contact.firstName;
+    document.getElementById("editLastName").value = contact.lastName;
+    document.getElementById("editPhoneNumber").value = contact.phoneNumber;
+    document.getElementById("editEmail").value = contact.email;
+
+	document.getElementById("myEditForm").style.display = "block";
+}
+
+// Closes the Edit Contact form
+function closeEditForm() {
+	document.getElementById("myEditForm").style.display = "none";
+}
+
+// Checks if the given fields are valid entries, if it is then call doEditContact
+function verifyEditContact() {
+	let editFirstName = document.getElementById("editFirstName").value;
+	let editLastName = document.getElementById("editLastName").value;
+	let editPhoneNumber = document.getElementById("editPhoneNumber").value;
+	let editEmail = document.getElementById("editEmail").value;
+
+	const nameRegex = /^[a-zA-Z]+$/;
+	const phoneRegex = /^\d{10}$/;
+	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+	// Check for any blank fields
+	if (editFirstName.length == 0 || editLastName.length == 0 || editPhoneNumber.length == 0 || editEmail.length == 0)
+	{
+		document.getElementById("editContactResult").innerHTML = "Please fill all fields.";
+		return;
+	}
+
+	// Clears the edit result text
+	document.getElementById("editContactResult").innerHTML = "";
+
+	if (!nameRegex.test(editFirstName))
+	{
+		document.getElementById("editContactResult").innerHTML = "Invalid First Name";
+	}
+	else if (!nameRegex.test(editLastName))
+	{
+		document.getElementById("editContactResult").innerHTML = "Invalid Last Name";
+	}
+	else if (!phoneRegex.test(editPhoneNumber))
+	{
+		document.getElementById("editContactResult").innerHTML = "Invalid Phone Number";
+	}
+	else if (!emailRegex.test(editEmail))
+	{
+		document.getElementById("editContactResult").innerHTML = "Invalid Email Address";
+	}
+	else
+	{
+		doEditContact(editFirstName, editLastName, editPhoneNumber, editEmail);
+	}
+}
+
+// Update the JSON object with the new edited values and send a POST request
+function doEditContact(editFirstName, editLastName, editPhoneNumber, editEmail) {
+	
+	// userId should still be unchanged from the database
+	contactDataToEdit.firstName = editFirstName;
+	contactDataToEdit.lastName = editLastName;
+  	contactDataToEdit.phoneNumber = editPhoneNumber;
+  	contactDataToEdit.email = editEmail;
+
+	let jsonPayload = JSON.stringify( contactDataToEdit );
+
+	let url = urlBase + '/UpdateContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("editContactResult").innerHTML = "Contact Updated.";
+				closeEditForm();
+
+				editUpdateRow();
+
+				contactIndexToEdit = null;
+				contactDataToEdit = null;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+}
+
+// Update the table row with the new edited data
+function editUpdateRow() {
+	const table = document.getElementById('contactTable');
+  	const row = table.getElementsByTagName('tbody')[0].rows[index];
+
+	  row.cells[0].textContent = contactDataToEdit.firstName;
+	  row.cells[1].textContent = contactDataToEdit.lastName;
+	  row.cells[2].textContent = contactDataToEdit.phoneNumber;
+	  row.cells[3].textContent = contactDataToEdit.email;
+}
+
 /* Testing data, delete later */
 const books = [
 {
 	firstName: "Adam",
 	lastName: "Wrangler",
-	phoneNumber: "123-456-7890",
+	phoneNumber: "1234567890",
 	email: "adam.wrangler@example.com"
 },
 {
 	firstName: "Steven",
 	lastName: "Crossing",
-	phoneNumber: "123-456-7890",
+	phoneNumber: "1234567890",
 	email: "steven.crossing@example.com"
 },
 {
 	firstName: "John",
 	lastName: "Doe",
-	phoneNumber: "123-456-7890",
+	phoneNumber: "1234567890",
 	email: "john.doe@example.com"
 },
 {
 	firstName: "Jane",
 	lastName: "Smith",
-	phoneNumber: "987-654-3210",
+	phoneNumber: "9876543210",
 	email: "jane.smith@example.com"
-}
-];
-
-const books2 = [
+},
 {
 	firstName: "Michael",
 	lastName: "Johnson",
-	phoneNumber: "321-654-9870",
+	phoneNumber: "3216549870",
 	email: "michael.johnson@example.com"
 },
 {
 	firstName: "Emily",
 	lastName: "Davis",
-	phoneNumber: "234-567-8901",
+	phoneNumber: "2345678901",
 	email: "emily.davis@example.com"
 },
 {
 	firstName: "Sarah",
 	lastName: "Williams",
-	phoneNumber: "456-789-0123",
+	phoneNumber: "4567890123",
 	email: "sarah.williams@example.com"
 },
 {
 	firstName: "David",
 	lastName: "Brown",
-	phoneNumber: "567-890-1234",
+	phoneNumber: "5678901234",
 	email: "david.brown@example.com"
 }
 ];
@@ -587,8 +695,4 @@ const books2 = [
 // test function
 function doTable() {
 	populateTable(books);
-}
-
-function doTable2() {
-	populateTable(books2);
 }
