@@ -235,16 +235,6 @@ function readCookie()
 	}
 }
 
-function doLogout()
-{
-	userId = 0;
-	firstName = "";
-	lastName = "";
-	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-
-    // Modify this later to be our landing page
-	window.location.href = "index.html";
-}
 
 // This was taken from w3schools example on tab buttons
 function openEvent(evt, tabName) {
