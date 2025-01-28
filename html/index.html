@@ -14,6 +14,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
   </head>
 
   <body class="contactPage">
@@ -35,7 +36,6 @@
 
     <!-- Add Contact Form -->
     <div class="addForm">
-      <h2>Contacts:</h2>
       <span id="contactSearchResult"></span>
       <button id="addContact" onclick="openForm()">Add Contact</button>
 
@@ -51,7 +51,8 @@
             <label for="addFirstName">First Name:</label>
             <input
               type="text"
-              placeholder="First Name"
+              value=""
+              placeholder=" "
               id="addFirstName"
               required
             />
@@ -61,7 +62,8 @@
             <label for="addLastName">Last Name:</label>
             <input
               type="text"
-              placeholder="Last Name"
+              value=""
+              placeholder=" "
               id="addLastName"
               required
             />
@@ -71,7 +73,8 @@
             <label for="addPhoneNumber">Phone Number:</label>
             <input
               type="text"
-              placeholder="Phone Number"
+              value=""
+              placeholder=" "
               id="addPhoneNumber"
               required
             />
@@ -79,14 +82,14 @@
 
           <div>
             <label for="addEmail">Email:</label>
-            <input type="text" placeholder="Email" id="addEmail" required />
+            <input type="text" value="" placeholder=" " id="addEmail" required />
           </div>
 
           <div id="formButtonContainer">
-            <button type="button" id="formButton" onclick="verifyAddContact()">
+            <button type="button" class="formButton" onclick="verifyAddContact()">
               Add Contact
             </button>
-            <button type="button" id="formButton" onclick="closeForm()">
+            <button type="button" class="formButton" onclick="closeForm()">
               Cancel
             </button>
           </div>
