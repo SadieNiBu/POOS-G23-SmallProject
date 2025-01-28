@@ -298,7 +298,7 @@ function searchContact() {
 
 					// ASK ABOUT THIS PART
 					contactList.push({
-						userID: 0,
+						userID: currContact.userID,
 						firstName: currContact.firstName,
 						lastName: currContact.lastName,
 						phoneNumber: currContact.phoneNumber,
@@ -415,8 +415,6 @@ function verifyAddContact() {
 function doAddContact() {
 
 	document.getElementById("addContactResult").innerHTML = "";
-
-	userId = 0;
 
 	let addFirstName = document.getElementById("addFirstName").value;
 	let addLastName = document.getElementById("addLastName").value;
