@@ -9,7 +9,7 @@ let lastName = "";
 
 // Open the Login tab when the page is opened
 document.addEventListener('DOMContentLoaded', function() {
-	if (window.location.pathname.endsWith('newindex.html'))
+	if (window.location.pathname.endsWith('index.html'))
 	{
 		openEvent(event, 'Login');
 	}
@@ -68,7 +68,7 @@ function doLogin()
 				
 				// ** TO DO **
                 // To be modified with our logged in page
-				window.location.href = "index.html";
+				window.location.href = "contact.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -138,6 +138,14 @@ function verifyPasswordConditions()
 		doSignup();
 		passwordField.classList.add("valid");
 	}
+
+	// **NOTE**:
+	// Testing this part, what it should do is remove any valid porperty and 
+	// forcefully set it to invalid, however it is still showing up as valid.
+	// So need to look this part up later. 
+	// (Im suspecting it has to do with the required tag for each of the fields)
+    passwordField.classList.remove("valid");
+	passwordField.classList.add("invalid");
 }
 
 // Continuously check for input on fields
@@ -547,7 +555,7 @@ function doLogout()
 	firstName = "";
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
-	window.location.href = "newindex.html";
+	window.location.href = "index.html";
 }
 
 // Store the index and data globally for easier scoping
