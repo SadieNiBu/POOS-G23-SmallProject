@@ -110,26 +110,64 @@ function verifyPasswordConditions()
     const digitCheck = /[0-9]/.test(password);
     const symbolCheck = /[@#$&%!]/.test(password);
 
+	// Remove the images before doing the check
+	const passwordField = document.getElementById("signupPassword");
+	passwordField.classList.remove("valid", "invalid");
+
 	// If password is not of at least length 8
 	if (!lengthCheck)
 	{
 		document.getElementById("signupResult").innerHTML = "Password is too short.";
+		passwordField.classList.add("invalid");
 	}
 	// If password does not have a unlisted character
 	else if (!validCharacters.test(password))
 	{
 		document.getElementById("signupResult").innerHTML = "Password contains invalid character.";
+		passwordField.classList.add("invalid");
 	}
 	// If password not have a alphabet, number, and a listed symbol
 	else if (!alphabetCheck || !digitCheck || !symbolCheck)
 	{
 		document.getElementById("signupResult").innerHTML = "Password does not meet criteria.";
+		passwordField.classList.add("invalid");
 	}
 	// Otherwise, all fields are filled and meet criteria so perform signup
 	else
 	{
 		doSignup();
+		passwordField.classList.add("valid");
 	}
+}
+
+// Continuously check for input on fields
+document.getElementById("signupPassword").addEventListener("input", verifyPasswordConditions);
+
+document.getElementById("firstName").addEventListener("input", function() {
+    validateField(this);
+});
+document.getElementById("lastName").addEventListener("input", function() {
+    validateField(this);
+});
+document.getElementById("signupName").addEventListener("input", function() {
+    validateField(this);
+});
+
+// Check for validity of input fields
+function validateField(field) {
+    if (field.value.trim() !== "") {
+        if (field.validity.valid) {
+            field.classList.add("valid");
+            field.classList.remove("invalid");
+        } else {
+            field.classList.add("invalid");
+            field.classList.remove("valid");
+        }
+    } else {
+        // If field is empty, mark it as invalid
+        field.classList.add("invalid");
+        field.classList.remove("valid");
+    }
 }
 
 // Performs signup by parsing given fields to JSON then send POST request

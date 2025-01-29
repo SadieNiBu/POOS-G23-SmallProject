@@ -12,9 +12,10 @@ html{
     align-items: center;
     height: 100vh;
     margin: 0;
-    background: url(images/autumnBackground.jpg);
+    background-image: url("/images/autumnBackground.png");
     background-repeat: no-repeat;
     background-position: 0%;
+    background-attachment: fixed;
     background-size:cover;
 }
 
@@ -156,8 +157,8 @@ border-top: none;
 
 /* Adds invalid symbol to userForm fields */
 .userForm input:required:invalid,
-.userForm input:focus:invalid {
-  background-image: url(images/invalid.png);
+.userForm input.invalid {
+  background-image: url("/images/invalid.png");
   background-position: center;
   background-repeat: no-repeat;
   background-position-x: 295px;
@@ -165,8 +166,9 @@ border-top: none;
 }
 
 /* Adds valid symbol to userForm fields */
-.userForm input:required:valid {
-  background-image: url(images/valid.png);
+.userForm input:required:valid,
+.userForm input.valid {
+  background-image: url("/images/valid.png");
   background-position: center;
   background-repeat: no-repeat;
   background-position-x: 287px;
@@ -231,9 +233,9 @@ border-top: none;
 /* Tooltip box text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 250px;
-  background-color: #555;
-  color: #fff;
+  width: 300px;
+  background-color: #c5edff;
+  color: #000000;
   text-align: left;
   padding: 5px 0;
   border-radius: 6px;
@@ -257,7 +259,7 @@ border-top: none;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #555 transparent;
+  border-color: transparent transparent #c5edff transparent;
 }
 
 /* Keep the tooltip box in focus while the password box is active */
@@ -273,7 +275,8 @@ border-top: none;
   align-items: center;
   height: 100vh;
   margin: 0;
-  background: url(images/autumnBackground.jpg);
+  background-image: url("/images/autumnBackground.png");
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size:cover;
 }
@@ -340,27 +343,27 @@ border-top: none;
 /* The Part of the search bar with input */
 #search{
     width: 450px;
-    border-radius: 25px;
+    border-radius: 25px 0px 0px 25px;
     padding: 8px;
     border: 3px solid #8c1306;
     font-size: 20px;
 }
 #search:focus{
     outline-width: 0px;
-    border-color: #d68539;
+    border: 3px solid #f88436;
 }
 
 /* Submit button for search */
 #searchSubmit{
     padding: 7px 15px;
     font-size: 23px;
-    border: none;
+    border: 3px solid #8c1306;
     outline-width: 0px;
-    border-radius: 50px;
+    border-radius: 0px 50px 50px 0px;
     background-color: #f88436;  
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    transition: background-color 0.3s ease, transform 0.3s ease;                
+    transition: background-color 0.3s ease, transform 0.3s ease;             
 }
 
 /* Contacts heading and add contact button spacing */
@@ -443,22 +446,22 @@ border-top: none;
 
 /* The labels for each of the information fields */
 .popupBox label {
-  font-size: 20px;
-  margin-right: 8px;
-  width: 40%;
+    font-size: 20px;
+    margin-right: 1px;
+    width: 45%;
 }
 
 /* Add contact information fields */
 .popupBox input[type="text"]{
     font-size: 20px;
-    width: 60%;
+    width: 80%;
     padding: 12px;
     text-align: left;
     font-size: 16px;
     border: 2px solid #ea7237;
     border-radius: 30px;
     margin: 15px;
-    box-sizing: border-box;  
+    box-sizing: border-box;   
 }
 
 /* When a textbox is selected, change outline */
@@ -472,7 +475,7 @@ border-top: none;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: 20px;
+    margin: 10px 10px 10px 0px;
 }
 
 /* "Add Contact" and "Cancel" buttons */
@@ -508,19 +511,19 @@ border-top: none;
 /* Adds invalid symbol to add contact fields */
 .popupBox input:required:invalid,
 .popupBox input:focus:invalid {
-  background-image: url(images/invalid.png);
+  background-image: url("/images/invalid.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-position-x: 263px;
+  background-position-x: 267px;
   background-size: 25px 25px;
 }
 
 /* Adds valid symbol to add contact fields */
 .popupBox input:required:valid {
-  background-image: url(images/valid.png);
+  background-image: url("/images/valid.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-position-x: 257px;
+  background-position-x: 260px;
   background-size: 38px 38px;
 }
 
