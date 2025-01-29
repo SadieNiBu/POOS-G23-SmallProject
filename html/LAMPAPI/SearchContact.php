@@ -17,7 +17,7 @@
 		$lastName = "%" . $inData["search"] . "%";
 		$phone = "%" . $inData["search"] . "%";
 		$email = "%" . $inData["search"] . "%";
-		$stmt->bind_param("sssss", $firstName, $lastName, $phone, $email, $inData["userID"]);
+		$stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $inData["userID"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
