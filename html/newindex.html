@@ -10,8 +10,9 @@
     <meta name="description" content="Contact manager for COP 4331" />
     <script type="text/javascript" src="js/code.js"></script>
     <link rel="stylesheet" href="css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
   </head>
-  <body>
+  <body class="landingPage">
     <div class="mainContainer">
       <h1 id="formTitle">
         <span>P</span>
@@ -53,28 +54,34 @@
 
         <div id="Login" class="tabcontent">
           <span id="loginResult"></span>
+          
+          <label for="loginName">Username:</label>
+          <input type="text" id="loginName" placeholder=" " /> <br />
 
-          <input type="text" id="loginName" placeholder="Username" /> <br />
-
-          <input type="password" id="loginPassword" placeholder="Password" />
+          <label for="loginPassword">Password:</label>
+          <input type="password" id="loginPassword" placeholder=" " />
           <br />
 
           <div id="login-button-container">
-            <button id="login-button">Log In</button> <br />
+            <button id="login-button" onclick="doLogin()">Log In</button> <br />
           </div>
         </div>
 
         <div id="Signup" class="tabcontent">
           <span id="signupResult"></span>
 
+          <label for="firstName">First Name:</label>
           <input type="text" id="firstName" placeholder="First Name" /> <br />
 
+          <label for="lastName">Last Name:</label>
           <input type="text" id="lastName" placeholder="Last Name" /> <br />
 
-          <input type="text" id="signupName" placeholder="Username" /> <br />
+          <label for="signupName">Username:</label>
+          <input type="text" id="signupName" placeholder=" " /> <br />
 
           <div class="tooltip">
-            <input type="password" id="signupPassword" placeholder="Password" />
+            <label for="signupPassword">Password:</label>
+            <input type="password" id="signupPassword" placeholder=" " />
             <span class="tooltiptext">
               <ul id="passwordList">
                 <span>Password must be:</span>
