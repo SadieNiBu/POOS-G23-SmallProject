@@ -157,7 +157,7 @@ border-top: none;
 
 /* Adds invalid symbol to userForm fields */
 .userForm input:required:invalid,
-.userForm input:focus:invalid {
+.userForm input.invalid {
   background-image: url("/images/invalid.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -166,7 +166,8 @@ border-top: none;
 }
 
 /* Adds valid symbol to userForm fields */
-.userForm input:required:valid {
+.userForm input:required:valid,
+.userForm input.valid {
   background-image: url("/images/valid.png");
   background-position: center;
   background-repeat: no-repeat;
