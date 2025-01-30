@@ -322,7 +322,7 @@ function searchContact() {
 
 	let contactList = [];
 
-	let tmp = {search:searchName,userId:userId};
+	let tmp = {search:searchName,userID:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContact.' + extension;
@@ -348,7 +348,8 @@ function searchContact() {
 						firstName: currContact.firstName,
 						lastName: currContact.lastName,
 						phoneNumber: currContact.phoneNumber,
-						email: currContact.email
+						email: currContact.email,
+						ID: currContact.ID
 					});
 				}
 				
@@ -627,7 +628,7 @@ function verifyEditContact() {
 // Update the JSON object with the new edited values and send a POST request
 function doEditContact(editFirstName, editLastName, editPhoneNumber, editEmail) {
 	
-	// userId should still be unchanged from the database
+	// userID should still be unchanged from the database as the object should still have it
 	contactDataToEdit.firstName = editFirstName;
 	contactDataToEdit.lastName = editLastName;
   	contactDataToEdit.phoneNumber = editPhoneNumber;
