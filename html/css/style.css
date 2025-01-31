@@ -631,6 +631,7 @@ border-top: none;
 /* The actual confirmation popup box */
 .deletePopupBox {
   background-color: white;
+  border: 5px solid #f88436;
   padding: 20px;
   text-align: center;
   border-radius: 8px;
@@ -649,6 +650,7 @@ border-top: none;
 #deleteConfirmationText {
   display: block;
   font-size: 20px;
+  font-weight: 600;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -658,25 +660,62 @@ border-top: none;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
 /* Add some spacing around the Delete and Cancel buttons */
 #deletePopupButtonsContainer button {
-  padding: 10px;
+  padding: 15px;
   width: 45%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 /* Individual properties for Cancel */
 #cancelDeleteButton {
-  background-color: #ff7e5f;
+  background-color: #ff5542;
+  border-radius: 30px;
   color: black;
+  border:none;
+  font-family: "Fredericka the Great", serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Cancel delete button when hovering over */
+#cancelDeleteButton:hover{
+  background-color: #bb1402;
+  transform: scale(1.05);
+}
+
+/*  Cancel delete button when active */
+#cancelDeleteButton:active{
+  background-color: #8c1306;
+  transform: scale(1);
 }
 
 /* Individual properties for Delete */
 #confirmDeleteButton {
-  background-color: #20bf20;
+  background-color: #44c1fa;
+  border-radius: 30px;
   color: black;
+  border:none;
+  font-family: "Fredericka the Great", serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Confirm delete button when hovering over */
+#confirmDeleteButton:hover{
+  background-color: #368eb7;
+  transform: scale(1.05);
+}
+
+/*  Confirm delete button when active */
+#confirmDeleteButton:active{
+  background-color: #245d78;
+  transform: scale(1);
 }
 
 /* Contacts heading and add contact button spacing */
@@ -691,30 +730,35 @@ border-top: none;
 /* Parent container for Add Contact form */
 .editContactPopup {
   display: none;
-  bottom: 20%;
   right: 15px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;     
+  height: 100%;
+  width: 100%;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.7);   
 }
 
 /* The popup box for the Add Contact form */
 .editPopupBox {
-  max-width: 450px;
+  max-width: 500px;
   padding: 10px;
-  border: 1px #73AD21;
-  background-color: gray;
+  border: 5px solid #f88436;
+  background-color: white;
   position: relative;
-  top: 46%;
+  top: 32%;
   width: 80%;
-  text-align: center;
-  margin-top: 30px;
-  margin: auto;    
+  text-align: right;
+  margin-top: -90px;
+  margin-left: auto;
+  margin-right: auto; 
   border-radius: 25px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  font-weight: 800;
 }
 
 .editPopupBox #editContactResult {
@@ -734,18 +778,45 @@ width: 100%;
 
 /* The labels for each of the information fields */
 .editPopupBox label {
-font-size: 20px;
-margin-right: 8px;
-width: 40%;
+  font-size: 20px;
+  margin-right: 1px;
+  width: 45%;
 }
 
 /* Add contact information fields */
 .editPopupBox input[type="text"]{
   font-size: 20px;
-  margin: 8px;    
-  width: 100%;
-  padding: 8px;
-  border-radius: 10px;
+  margin: 15px; 
+  width: 90%;
+  padding: 9px;
+  border: 2px solid #ea7237;
+  border-radius: 30px;
+  box-sizing: border-box;  
+}
+
+/* When a textbox is selected, change outline */
+.editPopupBox input[type="text"]:focus{
+  border-color: #ffee00;
+  outline: none; 
+}
+
+/* Adds invalid symbol to edit contact fields */
+.editPopupBox input:required:invalid,
+.editPopupBox input:focus:invalid {
+  background-image: url(images/invalid.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position-x: 279px;
+  background-size: 25px 25px;
+}
+
+/* Adds valid symbol to edit contact fields */
+.editPopupBox input:required:valid {
+  background-image: url(images/valid.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position-x: 272px;
+  background-size: 38px 38px;
 }
 
 /* The container for the Add Contact and Cancel buttons */
@@ -753,13 +824,35 @@ width: 40%;
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 20px;
+  margin: 10px 10px 10px 0px;
 }
 
-/* "Add Contact" and "Cancel" buttons */
+/* "Edit Contact" and "Cancel" buttons */
 .editPopupBox #editFormButton{
-  font-size: 20px;
-  margin: 8px;
-  padding: 8px;
+  position:static;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 18px;
+  background-color: #44c1fa;
+  color: white;
+  border: none;
   border-radius: 30px;
+  margin: 10px 55px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: "Fredericka the Great", serif;
+  font-weight: 600;
+}
+
+/* Edit Contact/Cancel" buttons when hovering over */
+.editPopupBox #editFormButton:hover{
+  background-color: #368eb7;
+  transform: scale(1.05);
+}
+
+/* Edit Contact/Cancel" buttons when active */
+.editPopupBox #editFormButton:active{
+  background-color: #245d78;
+  transform: scale(1);
 }
