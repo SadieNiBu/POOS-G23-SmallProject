@@ -155,6 +155,19 @@ border-top: none;
     outline: none;
 }
 
+.userForm #Login #loginName {
+  margin-right: 5px;
+}
+
+.userForm #Signup #firstName,
+.userForm #Signup #lastName {
+  margin-right: 15px;
+}
+
+.userForm #Signup #signupName {
+    margin-right: 5px;
+}
+
 /* Adds invalid symbol to userForm fields */
 .userForm input:required:invalid,
 .userForm input.invalid {
