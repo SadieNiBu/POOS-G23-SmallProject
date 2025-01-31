@@ -345,10 +345,10 @@ function searchContact() {
 				let jsonObject = JSON.parse( xhr.responseText );
 
 				// If no results, clear the table
-				if (jsonObject.results.length == 0)
+				if (jsonObject.error)
 				{
+					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
 					clearTable();
-					document.getElementById("contactSearchResult").innerHTML = "No Contacts Found.";
 				}
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
@@ -521,8 +521,7 @@ function doAddContact() {
 			// Accepted
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("contactSearchResult").innerHTML = "Contact Added.";
-				closeForm();
+				document.getElementById("addContactResult").innerHTML = "Contact Added.";
 			}
 		};
 		xhr.send(jsonPayload);
