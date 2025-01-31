@@ -353,7 +353,7 @@ function searchContact() {
 						userID: currContact.userID,
 						firstName: currContact.FirstName,
 						lastName: currContact.LastName,
-						phoneNumber: currContact.Phone,
+						phone: currContact.Phone,
 						email: currContact.Email,
 						ID: currContact.ID
 					});
@@ -396,9 +396,9 @@ function populateTable(contacts) {
 		lastNameCell.textContent = contact.lastName;
 		row.appendChild(lastNameCell);
 
-		const phoneNumberCell = document.createElement('td');
-		phoneNumberCell.textContent = contact.phoneNumber;
-		row.appendChild(phoneNumberCell);
+		const phoneCell = document.createElement('td');
+		phoneCell.textContent = contact.phone;
+		row.appendChild(phoneCell);
 
 		const emailCell = document.createElement('td');
 		emailCell.textContent = contact.email;
@@ -435,7 +435,7 @@ function populateTable(contacts) {
 function verifyAddContact() {
 	let addFirstName = document.getElementById("addFirstName").value;
 	let addLastName = document.getElementById("addLastName").value;
-	let addPhoneNumber = document.getElementById("addPhoneNumber").value;
+	let addPhone = document.getElementById("addPhone").value;
 	let addEmail = document.getElementById("addEmail").value;
 
 	const nameRegex = /^[a-zA-Z]+$/;
@@ -443,7 +443,7 @@ function verifyAddContact() {
 	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 	// Check for any blank fields
-	if (addFirstName.length == 0 || addLastName.length == 0 || addPhoneNumber.length == 0 || addEmail.length == 0)
+	if (addFirstName.length == 0 || addLastName.length == 0 || addPhone.length == 0 || addEmail.length == 0)
 	{
 		document.getElementById("addContactResult").innerHTML = "Please fill all fields.";
 		return;
@@ -460,7 +460,7 @@ function verifyAddContact() {
 	{
 		document.getElementById("addContactResult").innerHTML = "Invalid Last Name";
 	}
-	else if (!phoneRegex.test(addPhoneNumber))
+	else if (!phoneRegex.test(addPhone))
 	{
 		document.getElementById("addContactResult").innerHTML = "Invalid Phone Number";
 	}
@@ -481,12 +481,12 @@ function doAddContact() {
 
 	let addFirstName = document.getElementById("addFirstName").value;
 	let addLastName = document.getElementById("addLastName").value;
-	let addPhoneNumber = document.getElementById("addPhoneNumber").value;
+	let addPhone = document.getElementById("addPhone").value;
 	let addEmail = document.getElementById("addEmail").value;
 
 	// ** TO DO **
 	// Confirm if this is the correct JSON format for API
-	let tmp = {userID:userId,firstName:addFirstName,lastName:addLastName,phone:addPhoneNumber,email:addEmail};
+	let tmp = {userID:userId,firstName:addFirstName,lastName:addLastName,phone:addPhone,email:addEmail};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/AddContact.' + extension;
@@ -580,7 +580,7 @@ function openEditForm(index, contact) {
 
 	document.getElementById("editFirstName").value = contact.firstName;
     document.getElementById("editLastName").value = contact.lastName;
-    document.getElementById("editPhoneNumber").value = contact.phoneNumber;
+    document.getElementById("editPhone").value = contact.phone;
     document.getElementById("editEmail").value = contact.email;
 
 }
@@ -594,7 +594,7 @@ function closeEditForm() {
 function verifyEditContact() {
 	let editFirstName = document.getElementById("editFirstName").value;
 	let editLastName = document.getElementById("editLastName").value;
-	let editPhoneNumber = document.getElementById("editPhoneNumber").value;
+	let editPhone = document.getElementById("editPhone").value;
 	let editEmail = document.getElementById("editEmail").value;
 
 	const nameRegex = /^[a-zA-Z]+$/;
@@ -602,7 +602,7 @@ function verifyEditContact() {
 	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 	// Check for any blank fields
-	if (editFirstName.length == 0 || editLastName.length == 0 || editPhoneNumber.length == 0 || editEmail.length == 0)
+	if (editFirstName.length == 0 || editLastName.length == 0 || editPhone.length == 0 || editEmail.length == 0)
 	{
 		document.getElementById("editContactResult").innerHTML = "Please fill all fields.";
 		return;
@@ -619,7 +619,7 @@ function verifyEditContact() {
 	{
 		document.getElementById("editContactResult").innerHTML = "Invalid Last Name";
 	}
-	else if (!phoneRegex.test(editPhoneNumber))
+	else if (!phoneRegex.test(editPhone))
 	{
 		document.getElementById("editContactResult").innerHTML = "Invalid Phone Number";
 	}
@@ -629,17 +629,17 @@ function verifyEditContact() {
 	}
 	else
 	{
-		doEditContact(editFirstName, editLastName, editPhoneNumber, editEmail);
+		doEditContact(editFirstName, editLastName, editPhone, editEmail);
 	}
 }
 
 // Update the JSON object with the new edited values and send a POST request
-function doEditContact(editFirstName, editLastName, editPhoneNumber, editEmail) {
+function doEditContact(editFirstName, editLastName, editPhone, editEmail) {
 	
 	// userID should still be unchanged from the database as the object should still have it
 	contactDataToEdit.firstName = editFirstName;
 	contactDataToEdit.lastName = editLastName;
-  	contactDataToEdit.phoneNumber = editPhoneNumber;
+  	contactDataToEdit.phone = editPhone;
   	contactDataToEdit.email = editEmail;
 
 	let jsonPayload = JSON.stringify( contactDataToEdit );
@@ -679,6 +679,6 @@ function editUpdateRow() {
 
 	  row.cells[0].textContent = contactDataToEdit.firstName;
 	  row.cells[1].textContent = contactDataToEdit.lastName;
-	  row.cells[2].textContent = contactDataToEdit.phoneNumber;
+	  row.cells[2].textContent = contactDataToEdit.phone;
 	  row.cells[3].textContent = contactDataToEdit.email;
 }
