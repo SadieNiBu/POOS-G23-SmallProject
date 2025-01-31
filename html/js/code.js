@@ -382,11 +382,21 @@ function populateTable(contacts) {
 		const row = document.createElement('tr');
 
 		// make and assign cells to the row for each type of info
-		Object.values(contact).forEach(value => {
-			const cell = document.createElement('td');
-			cell.textContent = value;
-			row.appendChild(cell);
-		});
+		const firstNameCell = document.createElement('td');
+		firstNameCell.textContent = contact.firstName;
+		row.appendChild(firstNameCell);
+
+		const lastNameCell = document.createElement('td');
+		lastNameCell.textContent = contact.lastName;
+		row.appendChild(lastNameCell);
+
+		const phoneNumberCell = document.createElement('td');
+		phoneNumberCell.textContent = contact.phoneNumber;
+		row.appendChild(phoneNumberCell);
+
+		const emailCell = document.createElement('td');
+		emailCell.textContent = contact.email;
+		row.appendChild(emailCell);
 
 		// make the edit button
 		const editCell = document.createElement('td');
