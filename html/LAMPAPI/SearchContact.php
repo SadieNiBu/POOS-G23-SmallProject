@@ -30,7 +30,7 @@
 			}
 			$searchCount++;
 			//$searchResults .= '"' . $row["FirstName"] . '"';
-			$searchResults .= '{"FirstName" : :' . $row["FirstName"] . '", "LastName" : :' . $row["LastName"] . '", "Phone" : :' . $row["Phone"] . '", "Email" : :' . $row["Email"] . '"}';
+			$searchResults .= '{"FirstName" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '"}';
 		}
 		
 		if( $searchCount == 0 )
