@@ -307,10 +307,10 @@ function openEvent(evt, tabName) {
 // --------------- Start of logged in page functions -------------------
 
 // Need to store index and data as global variables to allow global scope access
-let contactIndexToDelete = null;
-let contactDataToDelete = null;
-let contactIndexToEdit = null;
-let contactDataToEdit = null;
+var contactIndexToDelete = null;
+var contactDataToDelete = null;
+var contactIndexToEdit = null;
+var contactDataToEdit = null;
 
 // Opens the Add Contact form
 function openForm() {
