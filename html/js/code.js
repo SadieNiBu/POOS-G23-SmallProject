@@ -345,10 +345,10 @@ function searchContact() {
 					// ASK ABOUT THIS PART
 					contactList.push({
 						userID: currContact.userID,
-						firstName: currContact.firstName,
-						lastName: currContact.lastName,
-						phoneNumber: currContact.phoneNumber,
-						email: currContact.email,
+						firstName: currContact.FirstName,
+						lastName: currContact.LastName,
+						phoneNumber: currContact.Phone,
+						email: currContact.Email,
 						ID: currContact.ID
 					});
 				}
