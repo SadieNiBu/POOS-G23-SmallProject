@@ -343,6 +343,13 @@ function searchContact() {
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
+
+				// If no results, clear the table
+				if (jsonObject.results.length == 0)
+				{
+					clearTable();
+					document.getElementById("contactSearchResult").innerHTML = "No Contacts Found.";
+				}
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
@@ -367,6 +374,19 @@ function searchContact() {
 	catch(err)
 	{
 		document.getElementById("contactSearchResult").innerHTML = err.message;
+	}
+}
+
+// Clears the rows in the table
+function clearTable() {
+	// table and tbody element
+	const table = document.getElementById('contactTable');
+	const tbody = table.getElementsByTagName('tbody')[0];
+
+	//tbody.innerHTML = '';
+	while (tbody.rows.length > 0)
+	{
+		tbody.deleteRow(0);
 	}
 }
 
@@ -501,7 +521,8 @@ function doAddContact() {
 			// Accepted
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("addContactResult").innerHTML = "Contact Added.";
+				document.getElementById("contactSearchResult").innerHTML = "Contact Added.";
+				closeForm();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -574,6 +595,7 @@ function doLogout()
 // Opens the Edit Contact form and fills the fields with contact data
 function openEditForm(index, contact) {
 	document.getElementById("myEditForm").style.display = "block";
+	document.getElementById("editContactResult").innerHTML = "";
 
 	contactIndexToEdit = index;
 	contactDataToEdit = contact;
