@@ -9,10 +9,10 @@ let lastName = "";
 
 // Open the Login tab when the page is opened
 document.addEventListener('DOMContentLoaded', function() {
-	if (window.location.pathname.endsWith('index.html'))
-	{
-		openEvent(event, 'Login');
-	}
+	const pathname = window.location.pathname;
+    if (pathname === '/' || pathname.endsWith('index.html')) {
+        openEvent(event, 'Login');
+    }
 });
 
 // Performs login by parsing provided credentials to JSON then send POST request
