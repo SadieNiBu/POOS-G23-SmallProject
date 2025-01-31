@@ -306,6 +306,12 @@ function openEvent(evt, tabName) {
 
 // --------------- Start of logged in page functions -------------------
 
+// Need to store index and data as global variables to allow global scope access
+let contactIndexToDelete = null;
+let contactDataToDelete = null;
+let contactIndexToEdit = null;
+let contactDataToEdit = null;
+
 // Opens the Add Contact form
 function openForm() {
 	document.getElementById("myForm").style.display = "block";
@@ -506,10 +512,6 @@ function doAddContact() {
 	}
 }
 
-// Need to store index as global variable to allow scope access
-let contactIndexToDelete = null;
-let contactDataToDelete = null;
-
 // Open a pop up box to ask user to confirm if they want to delete
 function verifyDeleteContact(index, contact) {
 	contactIndexToDelete = index;
@@ -569,12 +571,9 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-// Store the index and data globally for easier scoping
-let contactIndexToEdit = null;
-let contactDataToEdit = null;
-
 // Opens the Edit Contact form and fills the fields with contact data
 function openEditForm(index, contact) {
+	document.getElementById("myEditForm").style.display = "block";
 
 	contactIndexToEdit = index;
 	contactDataToEdit = contact;
@@ -584,7 +583,6 @@ function openEditForm(index, contact) {
     document.getElementById("editPhoneNumber").value = contact.phoneNumber;
     document.getElementById("editEmail").value = contact.email;
 
-	document.getElementById("myEditForm").style.display = "block";
 }
 
 // Closes the Edit Contact form
@@ -677,67 +675,10 @@ function doEditContact(editFirstName, editLastName, editPhoneNumber, editEmail) 
 // Update the table row with the new edited data
 function editUpdateRow() {
 	const table = document.getElementById('contactTable');
-  	const row = table.getElementsByTagName('tbody')[0].rows[index];
+  	const row = table.getElementsByTagName('tbody')[0].rows[contactIndexToEdit];
 
 	  row.cells[0].textContent = contactDataToEdit.firstName;
 	  row.cells[1].textContent = contactDataToEdit.lastName;
 	  row.cells[2].textContent = contactDataToEdit.phoneNumber;
 	  row.cells[3].textContent = contactDataToEdit.email;
-}
-
-/* Testing data, delete later */
-const books = [
-{
-	firstName: "Adam",
-	lastName: "Wrangler",
-	phoneNumber: "1234567890",
-	email: "adam.wrangler@example.com"
-},
-{
-	firstName: "Steven",
-	lastName: "Crossing",
-	phoneNumber: "1234567890",
-	email: "steven.crossing@example.com"
-},
-{
-	firstName: "John",
-	lastName: "Doe",
-	phoneNumber: "1234567890",
-	email: "john.doe@example.com"
-},
-{
-	firstName: "Jane",
-	lastName: "Smith",
-	phoneNumber: "9876543210",
-	email: "jane.smith@example.com"
-},
-{
-	firstName: "Michael",
-	lastName: "Johnson",
-	phoneNumber: "3216549870",
-	email: "michael.johnson@example.com"
-},
-{
-	firstName: "Emily",
-	lastName: "Davis",
-	phoneNumber: "2345678901",
-	email: "emily.davis@example.com"
-},
-{
-	firstName: "Sarah",
-	lastName: "Williams",
-	phoneNumber: "4567890123",
-	email: "sarah.williams@example.com"
-},
-{
-	firstName: "David",
-	lastName: "Brown",
-	phoneNumber: "5678901234",
-	email: "david.brown@example.com"
-}
-];
-
-// test function
-function doTable() {
-	populateTable(books);
 }
