@@ -714,10 +714,10 @@ function darkenDeleteRow() {
 
 	row.style.backgroundColor = 'black';
 	row.style.color = 'black';
-	row.cells[0].textContent = "";
-	row.cells[1].textContent = "";
-	row.cells[2].textContent = "";
-	row.cells[3].textContent = "";
-	row.cells[4].textContent = "";
-	row.cells[5].textContent = "";
+	row.cells[0].textContent = " ";
+	row.cells[1].textContent = " ";
+	row.cells[2].textContent = " ";
+	row.cells[3].textContent = " ";
+	row.cells[4].textContent = " ";
+	row.cells[5].textContent = " ";
 }
