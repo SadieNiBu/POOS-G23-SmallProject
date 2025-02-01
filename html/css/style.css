@@ -391,7 +391,7 @@ border-top: none;
 
 /* Add Contact Button */
 #addContact{
-    margin: 20px 2px;
+    margin: 25px 2px;
     font-size: 15px;
     border: none;
     padding: 12px 17px;
@@ -403,6 +403,7 @@ border-top: none;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     transition: background-color 0.3s ease, transform 0.3s ease;
+    position: absolute;
 }
 
 /* Parent container for Add Contact form */
@@ -554,6 +555,7 @@ border-top: none;
     border-color: rgb(0, 0, 0);
     font-weight: 600;
     border: 4px solid black;
+    margin-top: 100px;
 }
 
 #contactTable th{
