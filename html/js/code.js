@@ -570,6 +570,8 @@ function doDeleteContact() {
 				darkenDeleteRow();
 
 				document.getElementById("contactSearchResult").innerHTML = "Contact Deleted."
+				contactIndexToDelete = null;
+				contactDataToDelete = null;
 				closeDeletePopup();
 			}
 		};
@@ -580,8 +582,6 @@ function doDeleteContact() {
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 
-	contactIndexToDelete = null;
-	contactDataToDelete = null;
 }
 
 // Perform logout
