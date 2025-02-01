@@ -567,13 +567,7 @@ function doDeleteContact() {
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				const table = document.getElementById('contactTable');
-				const tbody = table.getElementsByTagName('tbody')[0];
-
-				const row = table.getElementsByTagName('tbody')[0].rows[contactIndexToDelete];
-
-				row.style.backgroundColor = 'black';
-				row.style.color = 'black';
+				darkenDeleteRow();
 
 				document.getElementById("contactSearchResult").innerHTML = "Contact Deleted."
 				closeDeletePopup();
@@ -711,4 +705,19 @@ function editUpdateRow() {
 	  row.cells[1].textContent = contactDataToEdit.lastName;
 	  row.cells[2].textContent = contactDataToEdit.phone;
 	  row.cells[3].textContent = contactDataToEdit.email;
+}
+
+// Darken the row that is indicated to be deleted and remove content
+function darkenDeleteRow() {
+	const table = document.getElementById('contactTable');
+  	const row = table.getElementsByTagName('tbody')[0].rows[contactIndexToDelete];
+
+	row.style.backgroundColor = 'black';
+	row.style.color = 'black';
+	row.cells[0].textContent = "";
+	row.cells[1].textContent = "";
+	row.cells[2].textContent = "";
+	row.cells[3].textContent = "";
+	row.cells[4].textContent = "";
+	row.cells[5].textContent = "";
 }
