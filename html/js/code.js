@@ -315,6 +315,11 @@ var contactDataToEdit = null;
 // Opens the Add Contact form
 function openForm() {
 	document.getElementById("myForm").style.display = "block";
+
+	document.getElementById("addFirstName").value = "";
+	document.getElementById("addLastName").value = "";
+	document.getElementById("addPhone").value = "";
+	document.getElementById("addEmail").value = "";
 }
 
 // Closes the Add Contact form
@@ -521,7 +526,8 @@ function doAddContact() {
 			// Accepted
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("addContactResult").innerHTML = "Contact Added.";
+				document.getElementById("contactSearchResult").innerHTML = "Contact Added.";
+				closeForm();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -564,10 +570,13 @@ function doDeleteContact() {
 				const table = document.getElementById('contactTable');
 				const tbody = table.getElementsByTagName('tbody')[0];
 
-				const rowToRemove = tbody.rows[contactIndexToDelete];
+				const row = table.getElementsByTagName('tbody')[0].rows[contactIndexToDelete];
 
-				rowToRemove.style.backgroundColor = 'black';
-				rowToRemove.style.color = 'black';
+				row.style.backgroundColor = 'black';
+				row.style.color = 'black';
+
+				document.getElementById("contactSearchResult").innerHTML = "Contact Deleted."
+				closeDeletePopup();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -676,7 +685,7 @@ function doEditContact(editFirstName, editLastName, editPhone, editEmail) {
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("editContactResult").innerHTML = "Contact Updated.";
+				document.getElementById("contactSearchResult").innerHTML = "Contact Updated.";
 				closeEditForm();
 
 				editUpdateRow();
