@@ -246,7 +246,7 @@ border-top: none;
 /* Tooltip box text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 300px;
+  width: 325px;
   background-color: #c5edff;
   color: #000000;
   text-align: left;
@@ -255,8 +255,8 @@ border-top: none;
 
   position: absolute;
   z-index: 1;
-  top: 125%;
-  left: 50%;
+  top: -50%;
+  left: 125%;
   margin-left: -25%;
 
   opacity: 0;
@@ -267,12 +267,13 @@ border-top: none;
 .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
-  bottom: 100%;
-  left: 50%;
+  bottom: 50%;
+  left: -3%;
+  transform: scale(2);
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #c5edff transparent;
+  border-color: transparent #c5edff transparent transparent;
 }
 
 /* Keep the tooltip box in focus while the password box is active */
