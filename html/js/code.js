@@ -66,8 +66,6 @@ function doLogin()
 
 				saveCookie();
 				
-				// ** TO DO **
-                // To be modified with our logged in page
 				window.location.href = "contact.html";
 			}
 		};
@@ -79,22 +77,56 @@ function doLogin()
 	}    
 }
 
-// Add a Enter key listener specifically for Login
-function enterKeyListener() {
-	if (document.getElementById("Login").style.display === "block") {
-		document.getElementById("loginName").addEventListener("keypress", function(event) {
-			if (event.key === "Enter") {
-				doLogin();
-			}
-		});
+// Performs login immediately for immediate after acccount creation
+function doSignin()
+{
+	
+	let login = document.getElementById("signupName").value;
+	let password = document.getElementById("signupPassword").value;
 
-		document.getElementById("loginPassword").addEventListener("keypress", function(event) {
-			if (event.key === "Enter") {
-				doLogin();
+    // Clears the Signup result text
+    document.getElementById("signupResult").innerHTML = "";
+	
+    let tmp = {login:login,password:password};
+    let jsonPayload = JSON.stringify( tmp );
+
+    let url = urlBase + '/Login.' + extension;
+    
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				userId = jsonObject.id;
+		
+				if( userId < 1 )
+				{		
+					document.getElementById("signupResult").innerHTML = "Error In Signing Into Account";
+					return;
+				}
+		
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+				saveCookie();
+				
+				window.location.href = "contact.html";
 			}
-		});
+		};
+		xhr.send(jsonPayload);
 	}
+	catch(err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}    
 }
+
 
 // Checks if the password meets the conditions
 function verifyPasswordConditions()
@@ -229,7 +261,7 @@ function doSignup()
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 
-				document.getElementById("signupResult").innerHTML = "Account Created.";
+				document.getElementById("signupResult").innerHTML = "Account Created. Redirecting...";
 
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
@@ -238,7 +270,7 @@ function doSignup()
 
 				// Force 1 secon delay before redirecting (to see signup result)
 				setTimeout(function() {
-					window.location.href = "contact.html";
+					doSignin();
 				}, 1000);
 			}
 			// Conflict (work with API later on this one)
@@ -324,7 +356,39 @@ function openEvent(evt, tabName) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+
+	if (tabName === "Login")
+	{
+		addEnterKeyListener();
+	}
+	else
+	{
+		removeEnterKeyListener();
+	}
 } 
+
+// Add a Enter key listener specifically for Login
+function addEnterKeyListener() {
+	if (document.getElementById("Login").style.display === "block") {
+		document.getElementById("loginName").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				doLogin();
+			}
+		});
+
+		document.getElementById("loginPassword").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				doLogin();
+			}
+		});
+	}
+}
+
+// Remove the Enter key listener when on signup tab
+function removeEnterKeyListener() {
+    document.getElementById("loginName").removeEventListener("keypress", doLogin);
+    document.getElementById("loginPassword").removeEventListener("keypress", doLogin);
+}
 
 // --------------- Start of logged in page functions -------------------
 
