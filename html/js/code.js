@@ -79,6 +79,23 @@ function doLogin()
 	}    
 }
 
+// Add a Enter key listener specifically for Login
+function enterKeyListener() {
+	if (document.getElementById("Login").style.display === "block") {
+		document.getElementById("loginName").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				doLogin();
+			}
+		});
+
+		document.getElementById("loginPassword").addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+				doLogin();
+			}
+		});
+	}
+}
+
 // Checks if the password meets the conditions
 function verifyPasswordConditions()
 {
@@ -212,12 +229,17 @@ function doSignup()
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
 
-				document.getElementById("signupResult").innerHTML = "Account Created. Please go back to Login.";
+				document.getElementById("signupResult").innerHTML = "Account Created.";
 
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
 				saveCookie();
+
+				// Force 1 secon delay before redirecting (to see signup result)
+				setTimeout(function() {
+					window.location.href = "contact.html";
+				}, 1000);
 			}
 			// Conflict (work with API later on this one)
 			else if (this.readyState == 4 && this.status == 409)
