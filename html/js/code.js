@@ -807,3 +807,8 @@ function darkenDeleteRow() {
 	row.cells[4].textContent = " ";
 	row.cells[5].textContent = " ";
 }
+
+// Display first name of user when page loads
+function displayUserFirstName () {
+	document.getElementById("mainHeader").textContent = 'Welcome, ' + firstName + ' ' + lastName;
+}
