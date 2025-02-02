@@ -331,7 +331,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		document.getElementById("mainHeader").textContent = "Logged in as " + firstName + " " + lastName;
 	}
 }
 
@@ -806,9 +806,4 @@ function darkenDeleteRow() {
 	row.cells[3].textContent = " ";
 	row.cells[4].textContent = " ";
 	row.cells[5].textContent = " ";
-}
-
-// Display first name of user when page loads
-function displayUserFirstName () {
-	document.getElementById("mainHeader").textContent = 'Welcome, ' + firstName + ' ' + lastName;
 }
