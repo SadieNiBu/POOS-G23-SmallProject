@@ -730,6 +730,12 @@ border-top: none;
   width: 100%;
 }
 
+/* Center align the heading of the edit form */
+.editPopupBox h3 {
+  text-align: center;
+  font-size: 30px;
+}
+
 /* Parent container for Add Contact form */
 .editContactPopup {
   display: none;
