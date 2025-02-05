@@ -617,6 +617,25 @@ border-top: none;
   width: 8%;
 }
 
+/* Pagination buttons of the table */
+#paginationButtonContainer {
+  display: flex;
+  position: relative;
+  width: 80%;
+  max-width: 1200px;
+  bottom: -1%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+#previousButton {
+  align-self: flex-start;
+}
+
+#nextButton {
+  align-self: flex-end;
+}
+
 /* Class container for popup (deal with background transparency) */
 .deletePopupContainer {
   display: none;
@@ -733,6 +752,7 @@ border-top: none;
 /* Center align the heading of the edit form */
 .editPopupBox h3 {
   text-align: center;
+  margin-left: 50%;
   font-size: 30px;
 }
 

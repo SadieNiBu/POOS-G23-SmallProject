@@ -24,6 +24,7 @@
         "DOMContentLoaded",
         function () {
           readCookie();
+          testingFunction();
         },
         false
       );
@@ -42,7 +43,7 @@
     <!-- Search Bar -->
     <div class="searchBar">
       <input type="text" id="search" placeholder="Search.." />
-      <button type="submit" id="searchSubmit" onclick="searchContact()">
+      <button type="submit" id="searchSubmit" onclick="testingFunction()">
         <i class="fa fa-search"></i>
       </button>
     </div>
@@ -189,7 +190,7 @@
             <button
               type="button"
               id="confirmDeleteButton"
-              onclick="doDeleteContact()"
+              onclick="testDeleteFunction()"
             >
               Delete
             </button>
@@ -219,7 +220,12 @@
       </thead>
       <tbody></tbody>
     </table>
-
+    <div id="paginationButtonContainer">
+      <button type="button" id="previousButton" onclick="goPreviousPage()">
+        Prev
+      </button>
+      <button type="button" id="nextButton" onclick="goNextPage()">Next</button>
+    </div>
     <!-- Add Contact Form Script (Add to js file) -->
   </body>
 </html>

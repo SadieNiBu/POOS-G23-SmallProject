@@ -188,43 +188,6 @@ function verifyPasswordConditions()
 		passwordField.classList.add("valid");
 	}
 
-	// **NOTE**:
-	// Testing this part, what it should do is remove any valid porperty and 
-	// forcefully set it to invalid, however it is still showing up as valid.
-	// So need to look this part up later. 
-	// (Im suspecting it has to do with the required tag for each of the fields)
-    passwordField.classList.remove("valid");
-	passwordField.classList.add("invalid");
-}
-
-// Continuously check for input on fields
-document.getElementById("signupPassword").addEventListener("input", verifyPasswordConditions);
-
-document.getElementById("firstName").addEventListener("input", function() {
-    validateField(this);
-});
-document.getElementById("lastName").addEventListener("input", function() {
-    validateField(this);
-});
-document.getElementById("signupName").addEventListener("input", function() {
-    validateField(this);
-});
-
-// Check for validity of input fields
-function validateField(field) {
-    if (field.value.trim() !== "") {
-        if (field.validity.valid) {
-            field.classList.add("valid");
-            field.classList.remove("invalid");
-        } else {
-            field.classList.add("invalid");
-            field.classList.remove("valid");
-        }
-    } else {
-        // If field is empty, mark it as invalid
-        field.classList.add("invalid");
-        field.classList.remove("valid");
-    }
 }
 
 // Performs signup by parsing given fields to JSON then send POST request
@@ -327,11 +290,12 @@ function readCookie()
 	
 	if( userId < 0 )
 	{
-		window.location.href = "index.html";
+		// REMOVE THe "//"" LATER
+		//window.location.href = "index.html";
 	}
 	else
 	{
-		document.getElementById("mainHeader").textContent = "Logged in as " + firstName + " " + lastName;
+		document.getElementById("mainHeader").textContent = "Welcome, " + firstName + " " + lastName + "!";
 	}
 }
 
@@ -365,7 +329,42 @@ function openEvent(evt, tabName) {
 	{
 		removeEnterKeyListener();
 	}
+
+	/* 
+	if (tabName === "Signup")
+	{
+		// Continuously check for input on fields
+		document.getElementById("signupPassword").addEventListener("input", verifyPasswordConditions);
+
+		document.getElementById("firstName").addEventListener("input", function() {
+			validateField(this);
+		});
+		document.getElementById("lastName").addEventListener("input", function() {
+			validateField(this);
+		});
+		document.getElementById("signupName").addEventListener("input", function() {
+			validateField(this);
+		});
+	}
 } 
+
+// Check for validity of input fields
+function validateField(field) {
+    if (field.value.trim() !== "") {
+        if (field.validity.valid) {
+            field.classList.add("valid");
+            field.classList.remove("invalid");
+        } else {
+            field.classList.add("invalid");
+            field.classList.remove("valid");
+        }
+    } else {
+        // If field is empty, mark it as invalid
+        field.classList.add("invalid");
+        field.classList.remove("valid");
+    }
+		*/
+}
 
 // Add a Enter key listener specifically for Login
 function addEnterKeyListener() {
@@ -397,6 +396,9 @@ var contactIndexToDelete = null;
 var contactDataToDelete = null;
 var contactIndexToEdit = null;
 var contactDataToEdit = null;
+
+// Variables for pagination
+var contacts = [];
 
 // Opens the Add Contact form
 function openForm() {
@@ -457,7 +459,9 @@ function searchContact() {
 					});
 				}
 				
-				populateTable(contactList);
+				contacts = contactList;
+
+				paginateTable();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -482,7 +486,7 @@ function clearTable() {
 }
 
 // Deletes the old table body rows and replaces with the new parameters from JSON
-function populateTable(contacts) {
+function populateTable(contactsToPrint) {
 	// table and tbody element
 	const table = document.getElementById('contactTable');
 	const tbody = table.getElementsByTagName('tbody')[0];
@@ -494,7 +498,7 @@ function populateTable(contacts) {
 	}
 
 	// go through each contact
-	contacts.forEach((contact, index) => {
+	contactsToPrint.forEach((contact, index) => {
 		// create a row
 		const row = document.createElement('tr');
 
@@ -800,10 +804,228 @@ function darkenDeleteRow() {
 
 	row.style.backgroundColor = 'black';
 	row.style.color = 'black';
-	row.cells[0].textContent = " ";
-	row.cells[1].textContent = " ";
-	row.cells[2].textContent = " ";
-	row.cells[3].textContent = " ";
-	row.cells[4].textContent = " ";
-	row.cells[5].textContent = " ";
+	row.cells[0].textContent = "N/A";
+	row.cells[1].textContent = "N/A";
+	row.cells[2].textContent = "N/A";
+	row.cells[3].textContent = "N/A";
+	row.cells[4].textContent = "N/A";
+	row.cells[5].textContent = "N/A";
+}
+
+var currentPage = 1;
+var contactsPerPage = 10;
+
+function paginateTable() {
+
+	let contactCount = contacts.length;
+	let pageCount = Math.ceil(contactCount / contactsPerPage);
+
+	let startIndex = (currentPage - 1) * contactsPerPage;
+	let endIndex = startIndex + contactsPerPage;
+	let contactsForCurrentPage = contacts.slice(startIndex, endIndex);
+
+	populateTable(contactsForCurrentPage);
+
+	document.getElementById('previousButton').disabled = currentPage === 1;
+
+	document.getElementById('nextButton').disabled = currentPage === pageCount;
+}
+
+function goNextPage() {
+	let contactCount = contacts.length;
+	let pageCount = Math.ceil(contactCount / contactsPerPage);
+
+	if (currentPage < pageCount) {
+		currentPage++;
+		paginateTable();
+	}
+}
+
+function goPreviousPage() {
+	if (currentPage > 1) {
+		currentPage--;
+		paginateTable();
+	}
+}
+
+// document.getElementById('nextButton').addEventListener('click', goToNextPage);
+// document.getElementById('previousButton').addEventListener('click', goToPreviousPage);
+
+
+function testingFunction() {
+	contacts = testContacts;
+	paginateTable();
+}
+
+let testContacts = [
+	{
+	  "userID": "1",
+	  "firstName": "John",
+	  "lastName": "Doe",
+	  "phone": "123-456-7890",
+	  "email": "johndoe@example.com",
+	  "ID": "1001"
+	},
+	{
+	  "userID": "2",
+	  "firstName": "Jane",
+	  "lastName": "Smith",
+	  "phone": "234-567-8901",
+	  "email": "janesmith@example.com",
+	  "ID": "1002"
+	},
+	{
+	  "userID": "3",
+	  "firstName": "Michael",
+	  "lastName": "Johnson",
+	  "phone": "345-678-9012",
+	  "email": "michaeljohnson@example.com",
+	  "ID": "1003"
+	},
+	{
+	  "userID": "4",
+	  "firstName": "Emily",
+	  "lastName": "Davis",
+	  "phone": "456-789-0123",
+	  "email": "emilydavis@example.com",
+	  "ID": "1004"
+	},
+	{
+	  "userID": "5",
+	  "firstName": "Chris",
+	  "lastName": "Martinez",
+	  "phone": "567-890-1234",
+	  "email": "chrismartinez@example.com",
+	  "ID": "1005"
+	},
+	{
+	  "userID": "6",
+	  "firstName": "Sara",
+	  "lastName": "Hernandez",
+	  "phone": "678-901-2345",
+	  "email": "sarahernandez@example.com",
+	  "ID": "1006"
+	},
+	{
+	  "userID": "7",
+	  "firstName": "David",
+	  "lastName": "Wilson",
+	  "phone": "789-012-3456",
+	  "email": "davidwilson@example.com",
+	  "ID": "1007"
+	},
+	{
+	  "userID": "8",
+	  "firstName": "Laura",
+	  "lastName": "Moore",
+	  "phone": "890-123-4567",
+	  "email": "lauramoore@example.com",
+	  "ID": "1008"
+	},
+	{
+	  "userID": "9",
+	  "firstName": "James",
+	  "lastName": "Taylor",
+	  "phone": "901-234-5678",
+	  "email": "jamestaylor@example.com",
+	  "ID": "1009"
+	},
+	{
+	  "userID": "10",
+	  "firstName": "Olivia",
+	  "lastName": "Anderson",
+	  "phone": "012-345-6789",
+	  "email": "oliviaanderson@example.com",
+	  "ID": "1010"
+	},
+	{
+	  "userID": "11",
+	  "firstName": "Daniel",
+	  "lastName": "Thomas",
+	  "phone": "123-456-7891",
+	  "email": "danielthomas@example.com",
+	  "ID": "1011"
+	},
+	{
+	  "userID": "12",
+	  "firstName": "Sophia",
+	  "lastName": "Jackson",
+	  "phone": "234-567-8902",
+	  "email": "sophiajackson@example.com",
+	  "ID": "1012"
+	},
+	{
+	  "userID": "13",
+	  "firstName": "Matthew",
+	  "lastName": "White",
+	  "phone": "345-678-9013",
+	  "email": "matthewwhite@example.com",
+	  "ID": "1013"
+	},
+	{
+	  "userID": "14",
+	  "firstName": "Chloe",
+	  "lastName": "Lopez",
+	  "phone": "456-789-0124",
+	  "email": "chloelopez@example.com",
+	  "ID": "1014"
+	},
+	{
+	  "userID": "15",
+	  "firstName": "Ethan",
+	  "lastName": "Lee",
+	  "phone": "567-890-1235",
+	  "email": "ethanlee@example.com",
+	  "ID": "1015"
+	},
+	{
+	  "userID": "16",
+	  "firstName": "Ava",
+	  "lastName": "Gonzalez",
+	  "phone": "678-901-2346",
+	  "email": "avagonzalez@example.com",
+	  "ID": "1016"
+	},
+	{
+	  "userID": "17",
+	  "firstName": "William",
+	  "lastName": "Martinez",
+	  "phone": "789-012-3457",
+	  "email": "williammartinez@example.com",
+	  "ID": "1017"
+	},
+	{
+	  "userID": "18",
+	  "firstName": "Isabella",
+	  "lastName": "Perez",
+	  "phone": "890-123-4568",
+	  "email": "isabellaperez@example.com",
+	  "ID": "1018"
+	},
+	{
+	  "userID": "19",
+	  "firstName": "Oliver",
+	  "lastName": "Brown",
+	  "phone": "901-234-5679",
+	  "email": "oliverbrown@example.com",
+	  "ID": "1019"
+	},
+	{
+	  "userID": "20",
+	  "firstName": "Amelia",
+	  "lastName": "Garcia",
+	  "phone": "012-345-6790",
+	  "email": "ameliagarcia@example.com",
+	  "ID": "1020"
+	}
+  ]
+  
+
+function testDeleteFunction() {
+	darkenDeleteRow();
+
+	document.getElementById("contactSearchResult").innerHTML = "Contact Deleted."
+	contactIndexToDelete = null;
+	contactDataToDelete = null;
+	closeDeletePopup();
 }
