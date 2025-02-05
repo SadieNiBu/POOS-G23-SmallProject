@@ -1,5 +1,3 @@
-// ** TO DO **
-// Confirm our domain and extension
 const urlBase = 'http://contact23.xyz/LAMPAPI';
 const extension = 'php';
 
@@ -35,8 +33,6 @@ function doLogin()
 		return;
 	}
 	
-	// ** TO DO **
-	// Confirm if this is the correct JSON format for API
     let tmp = {login:login,password:password};
     let jsonPayload = JSON.stringify( tmp );
 
@@ -204,8 +200,6 @@ function doSignup()
 	let login = document.getElementById("signupName").value;
 	let password = document.getElementById("signupPassword").value;
 
-	// ** TO DO **
-	// Confirm if this is the correct JSON format for API
 	let tmp = {firstName:firstName,lastName:lastName,login:login,password:password};
 	let jsonPayload = JSON.stringify( tmp );
 
@@ -599,8 +593,6 @@ function doAddContact() {
 	let addPhone = document.getElementById("addPhone").value;
 	let addEmail = document.getElementById("addEmail").value;
 
-	// ** TO DO **
-	// Confirm if this is the correct JSON format for API
 	let tmp = {userID:userId,firstName:addFirstName,lastName:addLastName,phone:addPhone,email:addEmail};
 	let jsonPayload = JSON.stringify( tmp );
 
@@ -812,10 +804,22 @@ function darkenDeleteRow() {
 	row.cells[5].textContent = "N/A";
 }
 
+// Global variables to hold table size information
 var currentPage = 1;
 var contactsPerPage = 10;
 
+
+// Paginate table based on parameters
 function paginateTable() {
+
+	if (contacts.length >= 1) {
+		paginationCountContainer.classList.remove('hidden');
+		paginationButtonContainer.classList.remove('hidden');
+	}
+	else {
+		paginationCountContainer.classList.add('hidden');
+		paginationButtonContainer.classList.add('hidden');
+	}
 
 	let contactCount = contacts.length;
 	let pageCount = Math.ceil(contactCount / contactsPerPage);
@@ -848,13 +852,30 @@ function goPreviousPage() {
 	}
 }
 
-// document.getElementById('nextButton').addEventListener('click', goToNextPage);
-// document.getElementById('previousButton').addEventListener('click', goToPreviousPage);
+function changeContactsPerPage(count) {
 
+	const buttons = document.querySelectorAll('.pagination-count-btn');
+	buttons.forEach(button => button.disabled = false);
+
+	event.target.disabled = true;
+  
+	contactsPerPage = count;
+	currentPage = 1;
+	paginateTable();
+}
 
 function testingFunction() {
 	contacts = testContacts;
 	paginateTable();
+}
+
+function testDeleteFunction() {
+	darkenDeleteRow();
+
+	document.getElementById("contactSearchResult").innerHTML = "Contact Deleted."
+	contactIndexToDelete = null;
+	contactDataToDelete = null;
+	closeDeletePopup();
 }
 
 let testContacts = [
@@ -1019,13 +1040,3 @@ let testContacts = [
 	  "ID": "1020"
 	}
   ]
-  
-
-function testDeleteFunction() {
-	darkenDeleteRow();
-
-	document.getElementById("contactSearchResult").innerHTML = "Contact Deleted."
-	contactIndexToDelete = null;
-	contactDataToDelete = null;
-	closeDeletePopup();
-}

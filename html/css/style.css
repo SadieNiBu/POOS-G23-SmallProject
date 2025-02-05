@@ -617,23 +617,120 @@ border-top: none;
   width: 8%;
 }
 
-/* Pagination buttons of the table */
-#paginationButtonContainer {
+.hidden {
+  display: none;
+}
+
+/* Pagination count buttons of the table */
+#paginationCountContainer {
   display: flex;
   position: relative;
   width: 80%;
   max-width: 1200px;
   bottom: -1%;
+  margin: 0 auto;
+  justify-content: flex-end;
+}
+
+/* Text that notates the count of the pagination */
+#paginationCountText {
+  font-size: 22px;
+}
+
+/* Pagination count buttons */
+#paginationCountContainer .pagination-count-btn {
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#paginationCountContainer .pagination-count-btn:focus {
+  outline: none;
+}
+
+#paginationCountContainer .pagination-count-btn:hover {
+  background-color: #f0f0f0;
+}
+
+#paginationCountContainer .pagination-count-btn:active {
+  background-color: #ddd;
+}
+
+/* Pagination movement buttons of the table */
+#paginationButtonContainer {
+  display: flex;
+  position: relative;
+  width: 80%;
+  max-width: 1200px;
+  bottom: -2%;
   justify-content: space-between;
   margin: 0 auto;
 }
 
+/* The Prev button */
 #previousButton {
   align-self: flex-start;
+  border: none;
+  background-color: #33dce9;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 20px;  
+  margin: 9px 2px;
+  text-align: center;
+  font-family: "Fredericka the Great", serif;
+  font-weight: 800;
+  font-size: 25px;
+  font-style: normal;
 }
 
+/* The Next button */
 #nextButton {
   align-self: flex-end;
+  border: none;
+  background-color: #33dce9;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  padding: 12px;
+  border-radius: 25px;
+  font-size: 20px;  
+  margin: 9px 2px;
+  text-align: center;
+  font-family: "Fredericka the Great", serif;
+  font-weight: 800;
+  font-size: 25px;
+  font-style: normal;
+}
+
+/* If either button cannot be used */
+#previousButton:disabled,
+#nextButton:disabled {
+    background-color: grey;
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* When hovering over */
+#previousButton:hover,
+#nextButton:hover {
+  background-color: #9c520c;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* When holding down button*/
+#previousButton:active,
+#nextButton:active {
+  background-color: #653609;
+  transform: scale(1);
 }
 
 /* Class container for popup (deal with background transparency) */
