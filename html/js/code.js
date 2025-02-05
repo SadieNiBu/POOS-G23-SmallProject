@@ -439,7 +439,10 @@ function searchContact() {
 
 					paginationCountContainer.classList.add('hidden');
 					paginationButtonContainer.classList.add('hidden');
-
+				}
+				else {
+					paginationCountContainer.classList.remove('hidden');
+					paginationButtonContainer.classList.remove('hidden');
 				}
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
@@ -815,11 +818,6 @@ var contactsPerPage = 10;
 
 // Paginate table based on parameters
 function paginateTable() {
-
-	if (contacts.length >= 1) {
-		paginationCountContainer.classList.remove('hidden');
-		paginationButtonContainer.classList.remove('hidden');
-	}
 
 	let contactCount = contacts.length;
 	let pageCount = Math.ceil(contactCount / contactsPerPage);
