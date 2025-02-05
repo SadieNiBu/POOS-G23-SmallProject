@@ -431,6 +431,9 @@ function searchContact() {
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 
+				let paginationCountContainer = document.getElementById('paginationCountContainer');
+				let paginationButtonContainer = document.getElementById('paginationButtonContainer');
+
 				// If no results, clear the table
 				if (jsonObject.error)
 				{
