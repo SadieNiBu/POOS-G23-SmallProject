@@ -440,12 +440,12 @@ function searchContact() {
 					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
 					clearTable();
 
-					paginationCountContainer.classList.add('hidden');
-					paginationButtonContainer.classList.add('hidden');
+					paginationCountContainer.style.display = "none";
+					paginationButtonContainer.style.display = "none";
 				}
 				else {
-					paginationCountContainer.classList.remove('hidden');
-					paginationButtonContainer.classList.remove('hidden');
+					paginationCountContainer.style.display = "block";
+					paginationButtonContainer.style.display = "block";
 				}
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
