@@ -225,10 +225,10 @@ function doSignup()
 
 				saveCookie();
 
-				// Force 1 secon delay before redirecting (to see signup result)
+				// Force 1 second delay before redirecting (to see signup result)
 				setTimeout(function() {
 					doSignin();
-				}, 1000);
+				}, 1500);
 			}
 			// Conflict (work with API later on this one)
 			else if (this.readyState == 4 && this.status == 409)
@@ -454,6 +454,10 @@ function searchContact() {
 				}
 				
 				contacts = contactList;
+				if (contacts.length == 0) {
+					paginationCountContainer.classList.add('hidden');
+					paginationButtonContainer.classList.add('hidden');
+				}
 
 				paginateTable();
 			}
@@ -815,10 +819,6 @@ function paginateTable() {
 	if (contacts.length >= 1) {
 		paginationCountContainer.classList.remove('hidden');
 		paginationButtonContainer.classList.remove('hidden');
-	}
-	else {
-		paginationCountContainer.classList.add('hidden');
-		paginationButtonContainer.classList.add('hidden');
 	}
 
 	let contactCount = contacts.length;
