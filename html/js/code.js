@@ -436,6 +436,10 @@ function searchContact() {
 				{
 					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
 					clearTable();
+
+					paginationCountContainer.classList.add('hidden');
+					paginationButtonContainer.classList.add('hidden');
+
 				}
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
@@ -454,10 +458,6 @@ function searchContact() {
 				}
 				
 				contacts = contactList;
-				if (contacts.length == 0) {
-					paginationCountContainer.classList.add('hidden');
-					paginationButtonContainer.classList.add('hidden');
-				}
 
 				paginateTable();
 			}

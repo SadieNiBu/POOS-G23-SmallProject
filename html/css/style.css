@@ -390,6 +390,11 @@ border-top: none;
     padding-right: 50px;
 }
 
+.addForm #contactSearchResult {
+  font-size: 18px;
+  background-color: salmon;
+}
+
 /* Add Contact Button */
 #addContact{
     margin: 25px 2px;
@@ -621,7 +626,7 @@ border-top: none;
   display: none;
 }
 
-/* Pagination count buttons of the table */
+/* Pagination count button container of the table */
 #paginationCountContainer {
   display: flex;
   position: relative;
@@ -630,6 +635,10 @@ border-top: none;
   bottom: -1%;
   margin: 0 auto;
   justify-content: flex-end;
+}
+
+#paginationCountWrapper {
+  background-color: salmon;
 }
 
 /* Text that notates the count of the pagination */
