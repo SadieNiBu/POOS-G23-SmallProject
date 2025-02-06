@@ -9,7 +9,8 @@ let lastName = "";
 document.addEventListener('DOMContentLoaded', function() {
 	const pathname = window.location.pathname;
     if (pathname === '/' || pathname.endsWith('index.html')) {
-        openEvent(event, 'Login');
+		let loginTabButton = document.getElementById('loginTab');
+		loginTabButton.click();
     }
 });
 
@@ -284,8 +285,7 @@ function readCookie()
 	
 	if( userId < 0 )
 	{
-		// REMOVE THe "//"" LATER
-		//window.location.href = "index.html";
+		window.location.href = "index.html";
 	}
 	else
 	{
@@ -391,7 +391,7 @@ var contactDataToDelete = null;
 var contactIndexToEdit = null;
 var contactDataToEdit = null;
 
-// Variables for pagination
+// Keep global scope of contact list
 var contacts = [];
 
 // Opens the Add Contact form
@@ -407,6 +407,19 @@ function openForm() {
 // Closes the Add Contact form
 function closeForm() {
 	document.getElementById("myForm").style.display = "none";
+}
+
+let backgroundImageIndex = 0;
+
+function changeBackground() {
+	const backgroundImages = [
+		"/images/autumnBackground.png",
+		"/images/background2.png",
+		"/images/background3.png"
+	]
+	document.body.style.backgroundImage = `url('${backgroundImages[backgroundImageIndex]}')`;
+
+	backgroundImageIndex = (backgroundImageIndex)
 }
 
 // Performs a contact search by parsing provided fields to JSON then send POST request
@@ -444,8 +457,8 @@ function searchContact() {
 					paginationButtonContainer.style.display = "none";
 				}
 				else {
-					paginationCountContainer.style.display = "block";
-					paginationButtonContainer.style.display = "block";
+					paginationCountContainer.style.display = "flex";
+					paginationButtonContainer.style.display = "flex";
 				}
 				
 				for( let i=0; i<jsonObject.results.length; i++ )

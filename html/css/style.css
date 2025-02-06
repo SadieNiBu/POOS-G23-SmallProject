@@ -306,6 +306,15 @@ border-top: none;
     padding-right: 15px;
 }
 
+#changeBackground {
+  width: auto;
+  height: 75px;
+  max-width: 100%;
+  max-height: 100%;
+  margin-left: auto;
+  cursor: pointer;
+}
+
 /* Logout Button */
 #logoutButton{
     border: none;
@@ -391,7 +400,7 @@ border-top: none;
 }
 
 .addForm #contactSearchResult {
-  font-size: 18px;
+  font-size: 26px;
   background-color: salmon;
 }
 
