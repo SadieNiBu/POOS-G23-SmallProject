@@ -304,6 +304,8 @@ border-top: none;
     background-size: 500px 500px;
     padding-left: 15px;
     padding-right: 15px;
+    position: sticky;
+    top: 0;
 }
 
 #changeBackground {
@@ -400,13 +402,12 @@ border-top: none;
 }
 
 .addForm #contactSearchResult {
-  font-size: 26px;
-  background-color: salmon;
+  font-size: 22px; 
 }
 
 /* Add Contact Button */
 #addContact{
-    margin: 25px 2px;
+    margin: 40px 2px;
     font-size: 15px;
     border: none;
     padding: 12px 17px;
@@ -647,12 +648,15 @@ border-top: none;
 }
 
 #paginationCountWrapper {
-  background-color: salmon;
+  background-color: #8c1306;
+  border-radius: 8px;
 }
 
 /* Text that notates the count of the pagination */
 #paginationCountText {
   font-size: 22px;
+  padding: 5px;
+  color: white;
 }
 
 /* Pagination count buttons */
@@ -661,7 +665,7 @@ border-top: none;
   border: none;
   padding: 5px 10px;
   font-size: 16px;
-  color: #000;
+  color: white;
   cursor: pointer;
   font-weight: bold;
 }
@@ -671,7 +675,8 @@ border-top: none;
 }
 
 #paginationCountContainer .pagination-count-btn:hover {
-  background-color: #f0f0f0;
+  background-color: grey;
+  border-radius: 25px;
 }
 
 #paginationCountContainer .pagination-count-btn:active {
@@ -693,7 +698,7 @@ border-top: none;
 #previousButton {
   align-self: flex-start;
   border: none;
-  background-color: #33dce9;
+  background-color: #f88436;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -712,7 +717,7 @@ border-top: none;
 #nextButton {
   align-self: flex-end;
   border: none;
-  background-color: #33dce9;
+  background-color: #f88436;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   transition: background-color 0.3s ease, transform 0.3s ease;
