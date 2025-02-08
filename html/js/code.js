@@ -411,15 +411,17 @@ function closeForm() {
 
 let backgroundImageIndex = 0;
 
+// Changes the background image of the contact page, can add images
 function changeBackground() {
 	const backgroundImages = [
-		"/images/autumnBackground.png",
-		"/images/background2.png",
-		"/images/background3.png"
+		"/images/dayBreak.png",
+		"/images/starryNight.png",
+		"/images/autumnBackground.png"
 	]
 	document.body.style.backgroundImage = `url('${backgroundImages[backgroundImageIndex]}')`;
-
-	backgroundImageIndex = (backgroundImageIndex)
+	
+	let totalImages = backgroundImages.length;
+	backgroundImageIndex = (backgroundImageIndex + 1) % totalImages;
 }
 
 // Performs a contact search by parsing provided fields to JSON then send POST request
