@@ -156,33 +156,25 @@ function verifyPasswordConditions()
     const digitCheck = /[0-9]/.test(password);
     const symbolCheck = /[@#$&%!]/.test(password);
 
-	// Remove the images before doing the check
-	const passwordField = document.getElementById("signupPassword");
-	passwordField.classList.remove("valid", "invalid");
-
 	// If password is not of at least length 8
 	if (!lengthCheck)
 	{
 		document.getElementById("signupResult").innerHTML = "Password is too short.";
-		passwordField.classList.add("invalid");
 	}
 	// If password does not have a unlisted character
 	else if (!validCharacters.test(password))
 	{
 		document.getElementById("signupResult").innerHTML = "Password contains invalid character.";
-		passwordField.classList.add("invalid");
 	}
 	// If password not have a alphabet, number, and a listed symbol
 	else if (!alphabetCheck || !digitCheck || !symbolCheck)
 	{
 		document.getElementById("signupResult").innerHTML = "Password does not meet criteria.";
-		passwordField.classList.add("invalid");
 	}
 	// Otherwise, all fields are filled and meet criteria so perform signup
 	else
 	{
 		doSignup();
-		passwordField.classList.add("valid");
 	}
 
 }
@@ -324,40 +316,35 @@ function openEvent(evt, tabName) {
 		removeEnterKeyListener();
 	}
 
-	/* 
+	 
 	if (tabName === "Signup")
 	{
 		// Continuously check for input on fields
-		document.getElementById("signupPassword").addEventListener("input", verifyPasswordConditions);
-
-		document.getElementById("firstName").addEventListener("input", function() {
-			validateField(this);
-		});
-		document.getElementById("lastName").addEventListener("input", function() {
-			validateField(this);
-		});
-		document.getElementById("signupName").addEventListener("input", function() {
-			validateField(this);
-		});
+		document.getElementById("signupPassword").addEventListener("input", activePasswordChecker);
 	}
-} 
+}
 
-// Check for validity of input fields
-function validateField(field) {
-    if (field.value.trim() !== "") {
-        if (field.validity.valid) {
-            field.classList.add("valid");
-            field.classList.remove("invalid");
-        } else {
-            field.classList.add("invalid");
-            field.classList.remove("valid");
-        }
-    } else {
-        // If field is empty, mark it as invalid
-        field.classList.add("invalid");
-        field.classList.remove("valid");
-    }
-		*/
+// Actively check if the password meets the criteria, display image
+function activePasswordChecker(event) {
+	let password = event.target.value;
+
+	// Conditions to check for on password
+	const validCharacters = /^[A-Za-z0-9@#$&%!]+$/.test(password);
+	const lengthCheck = password.length >= 8;
+	const alphabetCheck = /[A-Za-z]/.test(password);
+	const digitCheck = /[0-9]/.test(password);
+	const symbolCheck = /[@#$&%!]/.test(password);
+
+	const isValidPassword = validCharacters && lengthCheck && alphabetCheck && digitCheck && symbolCheck;
+
+	let passwordField = document.getElementById("signupPassword");
+
+	if (isValidPassword) {
+		passwordField.style.backgroundImage = "url('/images/valid.png')";
+	}
+	else {
+		passwordField.style.backgroundImage = "url('/images/invalid.png')";
+	}
 }
 
 // Add a Enter key listener specifically for Login

@@ -952,7 +952,7 @@ width: 100%;
 /* Adds invalid symbol to edit contact fields */
 .editPopupBox input:required:invalid,
 .editPopupBox input:focus:invalid {
-  background-image: url(images/invalid.png);
+  background-image: url("/images/invalid.png");
   background-position: center;
   background-repeat: no-repeat;
   background-position-x: 279px;
@@ -961,7 +961,7 @@ width: 100%;
 
 /* Adds valid symbol to edit contact fields */
 .editPopupBox input:required:valid {
-  background-image: url(images/valid.png);
+  background-image: url("/images/valid.png");
   background-position: center;
   background-repeat: no-repeat;
   background-position-x: 272px;
