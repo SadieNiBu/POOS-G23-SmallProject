@@ -398,14 +398,50 @@ function closeForm() {
 
 let backgroundImageIndex = 0;
 
-// Changes the background image of the contact page, can add images
+// Changes the background theme of the contact page
 function changeBackground() {
 	const backgroundImages = [
 		"/images/dayBreak.png",
 		"/images/starryNight.png",
 		"/images/autumnBackground.png"
 	]
+
+	const cardImages = [
+		"/images/sunset-card.png",
+		"/images/firefly-card.png",
+		"/images/autumn-card.png"
+	]
+
+	const textColor = [
+		"white",
+		"white",
+		"black"
+	]
+
+	const buttonColor = [
+		"#782c01",
+		"#000b62",
+		"#8c1306"
+	]
+
+	let carouselCard = document.getElementsByClassName('card');
+	let editCards = document.getElementsByClassName('edit-card');
+	let deleteCards = document.getElementsByClassName('delete-card');
+
 	document.body.style.backgroundImage = `url('${backgroundImages[backgroundImageIndex]}')`;
+	
+	for (let card of carouselCard) {
+		card.style.backgroundImage = `url('${cardImages[backgroundImageIndex]}')`;
+		card.style.color = textColor[backgroundImageIndex];
+	}
+
+	for (let editCard of editCards) {
+		editCard.style.backgroundColor = buttonColor[backgroundImageIndex];
+	}
+
+	for (let deleteCard of deleteCards) {
+		deleteCard.style.backgroundColor = buttonColor[backgroundImageIndex];
+	}
 	
 	let totalImages = backgroundImages.length;
 	backgroundImageIndex = (backgroundImageIndex + 1) % totalImages;
@@ -466,8 +502,12 @@ function searchContact() {
 				}
 				
 				contacts = contactList;
-
+				
+				// Create the table version of contacts
 				paginateTable();
+
+				// Create carousel version of contacts
+				createCarousel();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -662,7 +702,8 @@ function doDeleteContact() {
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				darkenDeleteRow();
-
+				emptyCarouselCard();
+				
 				document.getElementById("contactSearchResult").innerHTML = "Contact Deleted."
 				contactIndexToDelete = null;
 				contactDataToDelete = null;
@@ -777,6 +818,7 @@ function doEditContact(editFirstName, editLastName, editPhone, editEmail) {
 				closeEditForm();
 
 				editUpdateRow();
+				editUpdateCard();
 
 				contactIndexToEdit = null;
 				contactDataToEdit = null;
@@ -870,6 +912,7 @@ function changeContactsPerPage(count) {
 function testingFunction() {
 	contacts = testContacts;
 	paginateTable();
+	createCarousel();
 }
 
 function testDeleteFunction() {
@@ -961,85 +1004,149 @@ let testContacts = [
 	  "phone": "012-345-6789",
 	  "email": "oliviaanderson@example.com",
 	  "ID": "1010"
-	},
-	{
-	  "userID": "11",
-	  "firstName": "Daniel",
-	  "lastName": "Thomas",
-	  "phone": "123-456-7891",
-	  "email": "danielthomas@example.com",
-	  "ID": "1011"
-	},
-	{
-	  "userID": "12",
-	  "firstName": "Sophia",
-	  "lastName": "Jackson",
-	  "phone": "234-567-8902",
-	  "email": "sophiajackson@example.com",
-	  "ID": "1012"
-	},
-	{
-	  "userID": "13",
-	  "firstName": "Matthew",
-	  "lastName": "White",
-	  "phone": "345-678-9013",
-	  "email": "matthewwhite@example.com",
-	  "ID": "1013"
-	},
-	{
-	  "userID": "14",
-	  "firstName": "Chloe",
-	  "lastName": "Lopez",
-	  "phone": "456-789-0124",
-	  "email": "chloelopez@example.com",
-	  "ID": "1014"
-	},
-	{
-	  "userID": "15",
-	  "firstName": "Ethan",
-	  "lastName": "Lee",
-	  "phone": "567-890-1235",
-	  "email": "ethanlee@example.com",
-	  "ID": "1015"
-	},
-	{
-	  "userID": "16",
-	  "firstName": "Ava",
-	  "lastName": "Gonzalez",
-	  "phone": "678-901-2346",
-	  "email": "avagonzalez@example.com",
-	  "ID": "1016"
-	},
-	{
-	  "userID": "17",
-	  "firstName": "William",
-	  "lastName": "Martinez",
-	  "phone": "789-012-3457",
-	  "email": "williammartinez@example.com",
-	  "ID": "1017"
-	},
-	{
-	  "userID": "18",
-	  "firstName": "Isabella",
-	  "lastName": "Perez",
-	  "phone": "890-123-4568",
-	  "email": "isabellaperez@example.com",
-	  "ID": "1018"
-	},
-	{
-	  "userID": "19",
-	  "firstName": "Oliver",
-	  "lastName": "Brown",
-	  "phone": "901-234-5679",
-	  "email": "oliverbrown@example.com",
-	  "ID": "1019"
-	},
-	{
-	  "userID": "20",
-	  "firstName": "Amelia",
-	  "lastName": "Garcia",
-	  "phone": "012-345-6790",
-	  "email": "ameliagarcia@example.com",
-	  "ID": "1020"
 	}
   ]
+
+function changeContactDisplayType() {
+	let contactTable = document.getElementById('contactTable');
+	let paginationCountContainer = document.getElementById('paginationCountContainer');
+	let paginationButtonContainer = document.getElementById('paginationButtonContainer');
+	let imageTrack = document.getElementById('image-track');
+
+	if (contactTable.style.display === '') {
+		contactTable.style.display = 'none';
+		paginationCountContainer.style.display = 'none';
+		paginationButtonContainer.style.display = 'none';
+
+		imageTrack.style.display = 'flex';
+	} else {
+		contactTable.style.display = '';
+		paginationCountContainer.style.display = 'flex';
+		paginationButtonContainer.style.display = 'flex';
+
+		imageTrack.style.display = 'none';
+	}
+}
+
+function createCarousel() {
+	// Call the function to create the cards
+	createCards();
+
+	const track = document.getElementById('image-track');
+
+	// Event mouse down
+	track.onmousedown = (e) => {
+		track.dataset.mouseDownAt = e.clientX;
+	};
+
+	// Event mouse up
+	track.onmouseup = () => {
+		track.dataset.mouseDownAt = "0";
+		track.dataset.prevPercentage = track.dataset.percentage;
+	};
+
+	// Event mouse move
+	track.onmousemove = e => {
+		if (track.dataset.mouseDownAt == "0") {
+			return;
+		}
+
+		const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX;
+		const maxDelta = window.innerWidth / 2;
+
+		const percentage = (mouseDelta / maxDelta) * -100;
+		const nextPerUniconstrained = parseFloat(track.dataset.prevPercentage) + percentage;
+		const nextPercentage = Math.max(Math.min(nextPerUniconstrained, 0), -90);
+
+		track.dataset.percentage = nextPercentage;
+
+		track.animate({
+			transform: `translate(${nextPercentage}%, -50%)`
+		}, { duration: 1200, fill: "forwards" });
+
+		const listCards = track.getElementsByClassName("card");
+		for (const card of listCards) {
+			card.animate({
+				transform: `translateX(${nextPercentage}%)`
+			}, { duration: 1200, fill: "forwards" });
+		}
+	};
+}
+
+function createCards() {
+	const track = document.getElementById('image-track');
+
+	track.innerHTML = '';
+
+	contacts.forEach((contact, index) => {
+		const card = document.createElement('div');
+		card.classList.add('card');
+		card.dataset.index = index;
+		
+		const name = document.createElement('h2');
+		name.textContent = `${contact.firstName} ${contact.lastName}`;
+		
+		const phone = document.createElement('p');
+		phone.textContent = `Phone: ${contact.phone}`;
+
+		/*
+		// Check this part
+		const formattedPhone = contact.phone.replace(/\D/g, '');
+    	const formattedPhoneNumber = formattedPhone.length === 10 ? 
+      	`(${formattedPhone.slice(0, 3)}) ${formattedPhone.slice(3, 6)}-${formattedPhone.slice(6)}` : 
+      	contact.phone;
+    
+    	phone.textContent = `Phone: ${formattedPhoneNumber}`;
+		*/
+
+		const email = document.createElement('p');
+		email.textContent = `Email: ${contact.email}`;
+
+		const editButton = document.createElement('button');
+		editButton.innerHTML = '<i class="fa fa-pencil"></i>';
+		editButton.classList.add('edit-card');
+		editButton.onclick = () => {
+			openEditForm(index, contact);
+		}
+
+		const deleteButton = document.createElement('button');
+		deleteButton.innerHTML = '<i class="fa fa-trash"></i>';
+		deleteButton.classList.add('delete-card');
+		deleteButton.onclick = () => {
+			verifyDeleteContact(index, contact);
+		}
+
+		card.appendChild(name);
+		card.appendChild(phone);
+		card.appendChild(email);
+		card.appendChild(editButton);
+		card.appendChild(deleteButton);
+		
+		track.appendChild(card);
+	});
+}
+
+// Update the table row with the new edited data
+function editUpdateCard() {
+	const track = document.getElementById('image-track');
+	const cards = track.getElementsByClassName('card');
+
+	const cardToUpdate = cards[contactIndexToEdit];
+
+	cardToUpdate.querySelector('h2').textContent = `${contactDataToEdit.firstName} ${contactDataToEdit.lastName}`;
+    cardToUpdate.querySelector('p:nth-child(2)').textContent = `Phone: ${contactDataToEdit.phone}`;
+    cardToUpdate.querySelector('p:nth-child(3)').textContent = `Email: ${contactDataToEdit.email}`;
+}
+
+function emptyCarouselCard() {
+	const track = document.getElementById('image-track');
+	const cards = track.getElementsByClassName('card');
+
+	const cardToEmpty = cards[contactIndexToDelete];
+
+	cardToEmpty.querySelector('h2').textContent = '';
+    cardToEmpty.querySelector('p:nth-child(2)').textContent = '';
+    cardToEmpty.querySelector('p:nth-child(3)').textContent = '';
+    cardToEmpty.querySelector('editButton').innerHTML = '';
+	cardToEmpty.querySelector('deleteButton').innerHTML = '';
+}

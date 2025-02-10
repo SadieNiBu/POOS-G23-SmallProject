@@ -54,6 +54,12 @@
       <button type="submit" id="searchSubmit" onclick="searchContact()">
         <i class="fa fa-search"></i>
       </button>
+      <img
+        id="changeLayout"
+        src="images/compact-icon.png"
+        alt="Layout Icon"
+        onclick="changeContactDisplayType()"
+      />
     </div>
 
     <!-- Add Contact Form -->
@@ -228,6 +234,10 @@
       </thead>
       <tbody></tbody>
     </table>
+
+    <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+      <!-- Contacts will be injected by JavaScript -->
+    </div>
 
     <div id="paginationCountContainer">
       <div id="paginationCountWrapper">
