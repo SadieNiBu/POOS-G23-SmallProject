@@ -429,6 +429,9 @@ function changeBackground() {
 	let editCards = document.getElementsByClassName('edit-card');
 	let deleteCards = document.getElementsByClassName('delete-card');
 
+	let totalImages = backgroundImages.length;
+	backgroundImageIndex = (backgroundImageIndex + 1) % totalImages;
+
 	document.body.style.backgroundImage = `url('${backgroundImages[backgroundImageIndex]}')`;
 	
 	for (let card of carouselCard) {
@@ -444,56 +447,54 @@ function changeBackground() {
 		deleteCard.style.backgroundColor = buttonColor[backgroundImageIndex];
 	}
 	
-	let totalImages = backgroundImages.length;
-	backgroundImageIndex = (backgroundImageIndex + 1) % totalImages;
 }
 
 // Synchronize theme on each search contact
 function synchronizeTheme() {
-	function changeBackground() {
-		const backgroundImages = [
-			"/images/dayBreak.png",
-			"/images/starryNight.png",
-			"/images/autumnBackground.png"
-		]
+
+	const backgroundImages = [
+		"/images/dayBreak.png",
+		"/images/starryNight.png",
+		"/images/autumnBackground.png"
+	]
+
+	const cardImages = [
+		"/images/sunset-card.png",
+		"/images/firefly-card.png",
+		"/images/autumn-card.png"
+	]
+
+	const textColor = [
+		"white",
+		"white",
+		"black"
+	]
+
+	const buttonColor = [
+		"#782c01",
+		"#000b62",
+		"#8c1306"
+	]
+
+	let carouselCard = document.getElementsByClassName('card');
+	let editCards = document.getElementsByClassName('edit-card');
+	let deleteCards = document.getElementsByClassName('delete-card');
+
+	document.body.style.backgroundImage = `url('${backgroundImages[backgroundImageIndex]}')`;
 	
-		const cardImages = [
-			"/images/sunset-card.png",
-			"/images/firefly-card.png",
-			"/images/autumn-card.png"
-		]
-	
-		const textColor = [
-			"white",
-			"white",
-			"black"
-		]
-	
-		const buttonColor = [
-			"#782c01",
-			"#000b62",
-			"#8c1306"
-		]
-	
-		let carouselCard = document.getElementsByClassName('card');
-		let editCards = document.getElementsByClassName('edit-card');
-		let deleteCards = document.getElementsByClassName('delete-card');
-	
-		document.body.style.backgroundImage = `url('${backgroundImages[backgroundImageIndex]}')`;
-		
-		for (let card of carouselCard) {
-			card.style.backgroundImage = `url('${cardImages[backgroundImageIndex]}')`;
-			card.style.color = textColor[backgroundImageIndex];
-		}
-	
-		for (let editCard of editCards) {
-			editCard.style.backgroundColor = buttonColor[backgroundImageIndex];
-		}
-	
-		for (let deleteCard of deleteCards) {
-			deleteCard.style.backgroundColor = buttonColor[backgroundImageIndex];
-		}
+	for (let card of carouselCard) {
+		card.style.backgroundImage = `url('${cardImages[backgroundImageIndex]}')`;
+		card.style.color = textColor[backgroundImageIndex];
 	}
+
+	for (let editCard of editCards) {
+		editCard.style.backgroundColor = buttonColor[backgroundImageIndex];
+	}
+
+	for (let deleteCard of deleteCards) {
+		deleteCard.style.backgroundColor = buttonColor[backgroundImageIndex];
+	}
+	
 }
 
 // Performs a contact search by parsing provided fields to JSON then send POST request
