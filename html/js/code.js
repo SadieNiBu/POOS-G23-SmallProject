@@ -1205,6 +1205,6 @@ function emptyCarouselCard() {
 	cardToEmpty.querySelector('h2').textContent = '';
     cardToEmpty.querySelector('p:nth-child(2)').textContent = '';
     cardToEmpty.querySelector('p:nth-child(3)').textContent = '';
-    cardToEmpty.querySelector('edit-card').innerHTML = '';
-	cardToEmpty.querySelector('delete-card').innerHTML = '';
+    cardToEmpty.querySelector('.edit-card').innerHTML = '';
+	cardToEmpty.querySelector('.delete-card').innerHTML = '';
 }
