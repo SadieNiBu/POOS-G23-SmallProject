@@ -501,6 +501,8 @@ function synchronizeTheme() {
 function searchContact() {
 	let searchName = document.getElementById("search").value;
 
+	document.getElementById("contactSearchResult").innerHTML = "";
+
 	let contactList = [];
 
 	let tmp = {search:searchName,userID:userId};
@@ -1089,6 +1091,7 @@ function changeContactDisplayType() {
 	}
 }
 
+// Reference from https://www.youtube.com/watch?v=YS4Zg_hbQ1o
 function createCarousel() {
 	// Call the function to create the cards
 	createCards();
