@@ -396,7 +396,8 @@ function closeForm() {
 	document.getElementById("myForm").style.display = "none";
 }
 
-let backgroundImageIndex = 0;
+// Start out on number 2
+let backgroundImageIndex = 2;
 
 // Changes the background theme of the contact page
 function changeBackground() {
@@ -445,6 +446,54 @@ function changeBackground() {
 	
 	let totalImages = backgroundImages.length;
 	backgroundImageIndex = (backgroundImageIndex + 1) % totalImages;
+}
+
+// Synchronize theme on each search contact
+function synchronizeTheme() {
+	function changeBackground() {
+		const backgroundImages = [
+			"/images/dayBreak.png",
+			"/images/starryNight.png",
+			"/images/autumnBackground.png"
+		]
+	
+		const cardImages = [
+			"/images/sunset-card.png",
+			"/images/firefly-card.png",
+			"/images/autumn-card.png"
+		]
+	
+		const textColor = [
+			"white",
+			"white",
+			"black"
+		]
+	
+		const buttonColor = [
+			"#782c01",
+			"#000b62",
+			"#8c1306"
+		]
+	
+		let carouselCard = document.getElementsByClassName('card');
+		let editCards = document.getElementsByClassName('edit-card');
+		let deleteCards = document.getElementsByClassName('delete-card');
+	
+		document.body.style.backgroundImage = `url('${backgroundImages[backgroundImageIndex]}')`;
+		
+		for (let card of carouselCard) {
+			card.style.backgroundImage = `url('${cardImages[backgroundImageIndex]}')`;
+			card.style.color = textColor[backgroundImageIndex];
+		}
+	
+		for (let editCard of editCards) {
+			editCard.style.backgroundColor = buttonColor[backgroundImageIndex];
+		}
+	
+		for (let deleteCard of deleteCards) {
+			deleteCard.style.backgroundColor = buttonColor[backgroundImageIndex];
+		}
+	}
 }
 
 // Performs a contact search by parsing provided fields to JSON then send POST request
@@ -508,6 +557,9 @@ function searchContact() {
 
 				// Create carousel version of contacts
 				createCarousel();
+
+				// Make sure themes are synchronized
+				synchronizeTheme();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -708,6 +760,7 @@ function doDeleteContact() {
 				contactIndexToDelete = null;
 				contactDataToDelete = null;
 				closeDeletePopup();
+				closeDeletePopup();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -878,6 +931,14 @@ function paginateTable() {
 	document.getElementById('previousButton').disabled = currentPage === 1;
 
 	document.getElementById('nextButton').disabled = currentPage === pageCount;
+
+	let imageTrack = document.getElementById('image-track');
+
+	if (imageTrack.style.display === 'flex') {
+		contactTable.style.display = 'none';
+		paginationCountContainer.style.display = 'none';
+		paginationButtonContainer.style.display = 'none';
+	}
 }
 
 function goNextPage() {
@@ -1089,7 +1150,6 @@ function createCards() {
 		const phone = document.createElement('p');
 		phone.textContent = `Phone: ${contact.phone}`;
 
-		/*
 		// Check this part
 		const formattedPhone = contact.phone.replace(/\D/g, '');
     	const formattedPhoneNumber = formattedPhone.length === 10 ? 
@@ -1097,7 +1157,6 @@ function createCards() {
       	contact.phone;
     
     	phone.textContent = `Phone: ${formattedPhoneNumber}`;
-		*/
 
 		const email = document.createElement('p');
 		email.textContent = `Email: ${contact.email}`;
