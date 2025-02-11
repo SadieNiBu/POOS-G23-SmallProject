@@ -760,7 +760,6 @@ function doDeleteContact() {
 				contactIndexToDelete = null;
 				contactDataToDelete = null;
 				closeDeletePopup();
-				closeDeletePopup();
 			}
 		};
 		xhr.send(jsonPayload);
@@ -1206,6 +1205,6 @@ function emptyCarouselCard() {
 	cardToEmpty.querySelector('h2').textContent = '';
     cardToEmpty.querySelector('p:nth-child(2)').textContent = '';
     cardToEmpty.querySelector('p:nth-child(3)').textContent = '';
-    cardToEmpty.querySelector('editButton').innerHTML = '';
-	cardToEmpty.querySelector('deleteButton').innerHTML = '';
+    cardToEmpty.querySelector('edit-card').innerHTML = '';
+	cardToEmpty.querySelector('delete-card').innerHTML = '';
 }
