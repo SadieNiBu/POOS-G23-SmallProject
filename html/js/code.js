@@ -529,6 +529,7 @@ function searchContact() {
 				{
 					document.getElementById("contactSearchResult").innerHTML = jsonObject.error;
 					clearTable();
+					clearCarousel();
 
 					paginationCountContainer.style.display = "none";
 					paginationButtonContainer.style.display = "none";
@@ -1211,4 +1212,10 @@ function emptyCarouselCard() {
     cardToEmpty.querySelector('p:nth-child(3)').textContent = '';
     cardToEmpty.querySelector('.edit-card').innerHTML = '';
 	cardToEmpty.querySelector('.delete-card').innerHTML = '';
+}
+
+function clearCarousel() {
+	const track = document.getElementById('image-track');
+
+	track.innerHTML = "";
 }
